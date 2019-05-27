@@ -47,6 +47,20 @@ public class Datastore {
   }
 
   /**
+   * Helper method to retrieve messages
+   * 
+   */
+  public void addMessage(List<Message> messages, Entity entity, String user) {
+    String idString = entity.getKey().getName();
+    UUID id = UUID.fromString(idString);
+    String text = (String) entity.getProperty("text");
+    long timestamp = (long) entity.getProperty("timestamp");
+
+    Message message = new Message(id, user, text, timestamp);
+    messages.add(message);
+  }
+
+  /**
    * Gets messages posted by a specific user.
    *
    * @return a list of messages posted by the user, or empty list if user has never posted a
@@ -63,13 +77,7 @@ public class Datastore {
 
     for (Entity entity : results.asIterable()) {
       try {
-        String idString = entity.getKey().getName();
-        UUID id = UUID.fromString(idString);
-        String text = (String) entity.getProperty("text");
-        long timestamp = (long) entity.getProperty("timestamp");
-
-        Message message = new Message(id, user, text, timestamp);
-        messages.add(message);
+        addMessage(messages, entity, user);
       } catch (Exception e) {
         System.err.println("Error reading message.");
         System.err.println(entity.toString());
@@ -79,4 +87,32 @@ public class Datastore {
 
     return messages;
   }
+
+  /** 
+   * Gets all the messages by all the users
+   * 
+   * @return a list of messages posted by all the users, or an empty list if
+   * no user has written a message. The List is sorted by time descending.
+   */
+  public List<Message> getAllMessages(){
+  List<Message> messages = new ArrayList<>();
+
+  Query query = new Query("Message")
+    .addSort("timestamp", SortDirection.DESCENDING);
+  PreparedQuery results = datastore.prepare(query);
+
+  for (Entity entity : results.asIterable()) {
+   try {
+    String user = (String) entity.getProperty("user");
+    addMessage(messages, entity, user);
+   } catch (Exception e) {
+    System.err.println("Error reading message.");
+    System.err.println(entity.toString());
+    e.printStackTrace();
+   }
+  }
+
+  return messages;
+ }
+
 }
