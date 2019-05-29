@@ -1,5 +1,9 @@
 package com.google.codeu.servlets;
 
+import com.google.codeu.data.Datastore;
+import com.google.codeu.data.Message;
+import com.google.gson.Gson;
+
 import java.io.IOException;
 import java.util.List;
 
@@ -7,10 +11,6 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-
-import com.google.codeu.data.Datastore;
-import com.google.codeu.data.Message;
-import com.google.gson.Gson;
 
 /**
  * Handles fetching all messages for the public feed.
