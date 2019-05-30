@@ -25,15 +25,16 @@ import com.google.appengine.api.datastore.Query;
 import com.google.appengine.api.datastore.Query.FilterOperator;
 import com.google.appengine.api.datastore.Query.SortDirection;
 import java.util.ArrayList;
-import java.util.List;
-import java.util.UUID;
-import java.util.Set;
 import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
+import java.util.UUID;
 
 /** Provides access to the data stored in Datastore. */
 public class Datastore {
 
   private DatastoreService datastore;
+  private static final long MAX_ENTITIES = 1000;
 
   public Datastore() {
     datastore = DatastoreServiceFactory.getDatastoreService();
@@ -136,7 +137,7 @@ public class Datastore {
   public int getTotalMessageCount(){
     Query query = new Query("Message");
     PreparedQuery results = datastore.prepare(query);
-    return results.countEntities(FetchOptions.Builder.withLimit(1000));
+    return results.countEntities(FetchOptions.Builder.withLimit(MAX_ENTITIES));
   }
 
   /** Returns the total number of users. */
