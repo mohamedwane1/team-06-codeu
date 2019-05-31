@@ -34,7 +34,7 @@ import java.util.UUID;
 public class Datastore {
 
   private DatastoreService datastore;
-  private static final long MAX_ENTITIES = 1000;
+  private static final int MAX_ENTITIES = 1000;
 
   public Datastore() {
     datastore = DatastoreServiceFactory.getDatastoreService();
