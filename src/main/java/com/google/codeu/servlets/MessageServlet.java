@@ -81,9 +81,9 @@ public class MessageServlet extends HttpServlet {
     // Regex logic to replace image link address with html image tag
     String regex = "(https?://\\S+\\.(png|jpg|gif))";
     String replacement = "<img src=\"$1\" />";
-    String textWithImagesReplaced = userText.replaceAll(regex, replacement);
+    String textWithImagesReplaced = text.replaceAll(regex, replacement);
 
-    Message message = new Message(user, text);
+    Message message = new Message(user, textWithImagesReplaced);
     datastore.storeMessage(message);
 
     response.sendRedirect("/user-page.html?user=" + user);
