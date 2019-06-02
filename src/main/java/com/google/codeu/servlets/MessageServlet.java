@@ -79,7 +79,7 @@ public class MessageServlet extends HttpServlet {
     String text = Jsoup.clean(request.getParameter("text"), Whitelist.none());
 
     // Regex logic to replace image link address with html image tag
-    String regex = "(https?://\\S+\\.(png|jpg))";
+    String regex = "(https?://\\S+\\.(png|jpg|gif))";
     String replacement = "<img src=\"$1\" />";
     String textWithImagesReplaced = userText.replaceAll(regex, replacement);
 
