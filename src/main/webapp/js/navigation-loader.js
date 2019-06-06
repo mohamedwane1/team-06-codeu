@@ -37,6 +37,10 @@ function addLoginOrLogoutLinkToNavigation() {
           // Creates navigation link to public feed if user is logged in
           navigationElement.appendChild(createListItem(createLink(
             '/feed.html', 'Public Feed')));  
+          
+            // Creates navigation link to public feed if user is logged in
+          navigationElement.appendChild(createListItem(createLink(
+            '/maps.html', 'Maps')));  
 
           navigationElement.appendChild(
               createListItem(createLink('/logout', 'Logout')));
