@@ -34,7 +34,12 @@
    
    const bodyDiv = document.createElement('div');
    bodyDiv.classList.add('message-body');
-   bodyDiv.appendChild(document.createTextNode(message.text));
+   bodyDiv.innerHTML = message.text;
+   if (typeof message.imageUrl !== "undefined") {
+     const newImg = document.createElement("img");
+     newImg.setAttribute("src", message.imageUrl);
+     bodyDiv.appendChild(newImg);
+   }
    
    const messageDiv = document.createElement('div');
    messageDiv.classList.add("message-div");

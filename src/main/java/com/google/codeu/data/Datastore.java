@@ -45,6 +45,7 @@ public class Datastore {
     Entity messageEntity = new Entity("Message", message.getId().toString());
     messageEntity.setProperty("user", message.getUser());
     messageEntity.setProperty("text", message.getText());
+    messageEntity.setProperty("imageUrl", message.getImageUrl());
     messageEntity.setProperty("timestamp", message.getTimestamp());
 
     datastore.put(messageEntity);
@@ -58,9 +59,11 @@ public class Datastore {
     String idString = entity.getKey().getName();
     UUID id = UUID.fromString(idString);
     String text = (String) entity.getProperty("text");
+    String imageUrl = (String) entity.getProperty("imageUrl");
     long timestamp = (long) entity.getProperty("timestamp");
 
-    Message message = new Message(id, user, text, timestamp);
+    Message message = new Message(id, user, text, imageUrl, timestamp);
+    // Message message = new Message(id, user, text, timestamp);
     messages.add(message);
   }
 
