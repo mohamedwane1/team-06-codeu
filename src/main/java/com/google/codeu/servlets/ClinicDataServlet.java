@@ -26,10 +26,7 @@ public class ClinicDataServlet extends HttpServlet {
     while(scanner.hasNextLine()) {
       String line = scanner.nextLine();
       String[] cells = line.split(",");
-      // System.out.println("cells[0]" + cells[0]);
-      // System.out.println("cells[1]" + cells[1]);
-      // System.out.println("cells[2]" + cells[2]);
-      // System.out.println("cells[2]" + cells[3]);
+      
       double lat = Double.parseDouble(cells[0]);
       double lng = Double.parseDouble(cells[1]);
 
