@@ -1,14 +1,15 @@
 function createClinicsMap(){
     fetch('/clinics-data').then(function(response) {
       return response.json();
-    }).then((Clinic) => {
-        
+    }).then((clinics) => {
       const map = new google.maps.Map(document.getElementById('map'), {
+        // Centered at this location because it was the most central 
+        // to the data I was using
         center: {lat: 45.56602083, lng: -94.1503188},
         zoom:7
       });
 
-      Clinic.forEach((Clinic) => {
+      clinics.forEach((clinic) => {
           addLandmark(map, Clinic.lat, Clinic.lng, Clinic.title, Clinic.description)
       });
     });

@@ -26,14 +26,28 @@ public class ClinicDataServlet extends HttpServlet {
     while(scanner.hasNextLine()) {
       String line = scanner.nextLine();
       String[] cells = line.split(",");
+
+      // Initializes to a default value in case the data is faulty
+      double lat = 0.0;
+      double lng = 0.0;
+      String description = "";
+
+      // Implements checks on input data
+      if (cells.length >= 2) {
+        lat = Double.parseDouble(cells[0]);
+        lng = Double.parseDouble(cells[1]);
       
-      double lat = Double.parseDouble(cells[0]);
-      double lng = Double.parseDouble(cells[1]);
+        // Add Title
+        if (cells.length >= 3) {
+          description = cells[2];
+        }
 
-      String title = cells[2];
-      String description = cells[2] + ": \n \n" + cells[3];
+        // Add Description
+        if (cells.length >= 4) {
+          description = description + ": \n \n" + cells[3];
+        }
+    }
 
-      // String summary = cells[2];
       clinicArray.add(gson.toJsonTree(new Clinic(lat, lng, title, description)));
     }
     scanner.close();
