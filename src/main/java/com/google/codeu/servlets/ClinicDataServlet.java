@@ -30,8 +30,8 @@ public class ClinicDataServlet extends HttpServlet {
       // Initializes to a default value in case the data is faulty
       double lat = 0.0;
       double lng = 0.0;
+      String title = "";
       String description = "";
-
       // Implements checks on input data
       if (cells.length >= 2) {
         lat = Double.parseDouble(cells[0]);
@@ -39,12 +39,12 @@ public class ClinicDataServlet extends HttpServlet {
       
         // Add Title
         if (cells.length >= 3) {
-          description = cells[2];
+          title = cells[2];
         }
 
         // Add Description
         if (cells.length >= 4) {
-          description = description + ": \n \n" + cells[3];
+          description = title + ": \n \n" + cells[3];
         }
     }
 
@@ -60,7 +60,7 @@ public class ClinicDataServlet extends HttpServlet {
   }
 
   // This class could be its own file if we needed it outside this servlet
-  private static class Clinic{
+  private static class Clinic {
     double lat;
     double lng;
     String title;

@@ -10,7 +10,7 @@ function createClinicsMap(){
       });
 
       clinics.forEach((clinic) => {
-          addLandmark(map, Clinic.lat, Clinic.lng, Clinic.title, Clinic.description)
+          addLandmark(map, clinic.lat, clinic.lng, clinic.title, clinic.description)
       });
     });
   }
