@@ -10,33 +10,33 @@ import com.google.gson.Gson;
 import com.google.gson.JsonArray;
 import java.util.Scanner;
 
-@WebServlet("/bookchart")
-public class ChartServlet extends HttpServlet {
-  private JsonArray bookRatingArray;
+@WebServlet("/lengthChart")
+public class LengthServlet extends HttpServlet {
+  private JsonArray lengthArray;
   //This class could be its own file if we needed it outside this servlet
-  private static class bookRating{
-    String title;
-    double rating;
+  private static class length{
+    String procedure;
+    int length;
 
-    private bookRating (String title, double rating) {
-      this.title =  title;
-      this.rating = rating;
+    private length (String procedure, int length) {
+      this.procedure =  procedure;
+      this.length = length;
     }
   }
 
   @Override
   public void init() {
-    bookRatingArray = new JsonArray();
+    lengthArray = new JsonArray();
     Gson gson = new Gson();
     Scanner scanner = new Scanner(getServletContext().
-    getResourceAsStream("/WEB-INF/book-ratings.csv"));
+    getResourceAsStream("/WEB-INF/procedures.csv"));
     scanner.nextLine(); //skips first line (the  csv header)
     while(scanner.hasNextLine()) {
       String line = scanner.nextLine();
       String[] cells = line.split(",");
-      String curTitle = cells[5];
-      double curRating = Double.parseDouble(cells[6]);
-      bookRatingArray.add(gson.toJsonTree(new bookRating(curTitle, curRating)));
+      String curProcedure = cells[1];
+      int curLength = Integer.parseInt(cells[4]);
+      lengthArray.add(gson.toJsonTree(new length(curProcedure, curLength)));
     }
     scanner.close();
   }
@@ -45,7 +45,7 @@ public class ChartServlet extends HttpServlet {
   public void doGet(HttpServletRequest request,
   HttpServletResponse response) throws IOException {
     response.setContentType("application/json");
-    response.getOutputStream().println(bookRatingArray.toString());
+    response.getOutputStream().println(lengthArray.toString());
   }
 
 

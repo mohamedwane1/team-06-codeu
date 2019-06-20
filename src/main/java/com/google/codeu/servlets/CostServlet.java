@@ -10,33 +10,33 @@ import com.google.gson.Gson;
 import com.google.gson.JsonArray;
 import java.util.Scanner;
 
-@WebServlet("/bookchart")
-public class ChartServlet extends HttpServlet {
-  private JsonArray bookRatingArray;
+@WebServlet("/costChart")
+ public class CostServlet extends HttpServlet {
+  private JsonArray costArray;
   //This class could be its own file if we needed it outside this servlet
-  private static class bookRating{
-    String title;
-    double rating;
+  private static class cost{ 
+    String procedure;
+    int cost;
 
-    private bookRating (String title, double rating) {
-      this.title =  title;
-      this.rating = rating;
+    private cost (String procedure, int cost) {
+      this.procedure =  procedure;
+      this.cost = cost;
     }
   }
 
   @Override
   public void init() {
-    bookRatingArray = new JsonArray();
+    costArray = new JsonArray();
     Gson gson = new Gson();
     Scanner scanner = new Scanner(getServletContext().
-    getResourceAsStream("/WEB-INF/book-ratings.csv"));
+    getResourceAsStream("/WEB-INF/procedures.csv")); //sets scanner on csv file
     scanner.nextLine(); //skips first line (the  csv header)
     while(scanner.hasNextLine()) {
       String line = scanner.nextLine();
       String[] cells = line.split(",");
-      String curTitle = cells[5];
-      double curRating = Double.parseDouble(cells[6]);
-      bookRatingArray.add(gson.toJsonTree(new bookRating(curTitle, curRating)));
+      String curProcedure = cells[1];
+      int curCost = Integer.parseInt(cells[2]);
+      costArray.add(gson.toJsonTree(new cost(curProcedure, curCost))); //adds each piece of data to the JsonArray
     }
     scanner.close();
   }
@@ -45,7 +45,7 @@ public class ChartServlet extends HttpServlet {
   public void doGet(HttpServletRequest request,
   HttpServletResponse response) throws IOException {
     response.setContentType("application/json");
-    response.getOutputStream().println(bookRatingArray.toString());
+    response.getOutputStream().println(costArray.toString());
   }
 
 

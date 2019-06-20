@@ -11,9 +11,9 @@
       google.charts.load('current', {packages: ['corechart']});
       google.charts.setOnLoadCallback(drawChart);
       function drawChart(){
-        fetch("/bookchart")
+        fetch("/bookchart") //links the servlet to the html page
         .then((response) => {
-          return response.json();
+          return response.json();//returns the csv in json format
         })
         .then((bookJson) => {
           var bookData = new google.visualization.DataTable();

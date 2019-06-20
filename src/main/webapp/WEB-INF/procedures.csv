@@ -1,0 +1,5 @@
+﻿id,procedure_type,average_cost,length_string,length_minutes,time_of_pregnancy,success_rate,source
+1,Medication Abortion,535,1-5 minutes,5,1-5 weeks,96,https://www.plannedparenthood.org/learn/abortion/the-abortion-pill
+2,Aspiration Abortion,508,10-15 minutes,15,5-16 weeks,98,https://www.ourbodiesourselves.org/book-excerpts/health-article/vacuum-aspiration-abortion/
+3,Dilation & Evacuation,1750,15-30 minutes,30,16-21 weeks,null,https://americanpregnancy.org/unplanned-pregnancy/surgical-abortions/
+4,Dilation & Extraction,11500,,20,after 21 weeks,null,https://www.webmd.com/women/abortion-procedures#3-7
