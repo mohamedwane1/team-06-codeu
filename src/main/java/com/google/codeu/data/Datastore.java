@@ -163,6 +163,7 @@ public class Datastore {
    
    return user;
   }
+  
   /** Returns the total number of messages for all users. */
   public int getTotalMessageCount(){
     Query query = new Query("Message");
