@@ -48,6 +48,18 @@ function showMessageFormIfViewingSelf() {
 
 }
 
+function fetchBlobstoreUrlAndShowForm() {
+  fetch('/blobstore-upload-url')
+    .then((response) => {
+      return response.text();
+    })
+    .then((imageUploadUrl) => {
+      const messageForm = document.getElementById('message-form');
+      messageForm.action = imageUploadUrl;
+      messageForm.classList.remove('hidden');
+    });
+}
+
 /** Fetches messages and add them to the page. */
 function fetchMessages() {
   const url = '/messages?user=' + parameterUsername;
@@ -83,6 +95,11 @@ function buildMessageDiv(message) {
   const bodyDiv = document.createElement('div');
   bodyDiv.classList.add('message-body');
   bodyDiv.innerHTML = message.text;
+  if (typeof message.imageUrl !== "undefined") {
+    const newImg = document.createElement("img");
+    newImg.setAttribute("src", message.imageUrl);
+    bodyDiv.appendChild(newImg);
+  }
 
   const messageDiv = document.createElement('div');
   messageDiv.classList.add('message-div');
@@ -109,6 +126,7 @@ function fetchAboutMe(){
 
 /** Fetches data and populates the UI of the page. */
 function buildUI() {
+  fetchBlobstoreUrlAndShowForm();
   setPageTitle();
   showMessageFormIfViewingSelf();
   fetchMessages();

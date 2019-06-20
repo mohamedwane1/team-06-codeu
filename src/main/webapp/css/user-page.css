@@ -45,3 +45,10 @@
 .hidden {
   display: none;
 }
+
+/* Fix a size for image inputs */
+.message-body img {
+  display: block;
+  margin-top: 25px;
+  max-width: 75%;
+}

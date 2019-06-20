@@ -37,6 +37,10 @@ function addLoginOrLogoutLinkToNavigation() {
           // Creates navigation link to public feed if user is logged in
           navigationElement.appendChild(createListItem(createLink(
             '/feed.html', 'Public Feed')));  
+          
+            // Creates navigation link to public feed if user is logged in
+          navigationElement.appendChild(createListItem(createLink(
+            '/clinics-map.html', 'Maps')));  
 
           navigationElement.appendChild(
               createListItem(createLink('/logout', 'Logout')));
@@ -49,7 +53,7 @@ function addLoginOrLogoutLinkToNavigation() {
 
 /**
  * Creates an li element.
- * @param {Element} childElement
+ * @param {Element} childElements
  * @return {Element} li element
  */
 function createListItem(childElement) {
