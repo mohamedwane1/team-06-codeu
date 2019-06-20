@@ -58,6 +58,19 @@ function fetchBlobstoreUrlAndShowForm() {
       messageForm.action = imageUploadUrl;
       messageForm.classList.remove('hidden');
     });
+
+}
+
+function fetchBlobstoreUrlAndShowForm() {
+  fetch('/blobstore-upload-url')
+    .then((response) => {
+      return response.text();
+    })
+    .then((imageUploadUrl) => {
+      const messageForm = document.getElementById('message-form');
+      messageForm.action = imageUploadUrl;
+      messageForm.classList.remove('hidden');
+    });
 }
 
 /** Fetches messages and add them to the page. */

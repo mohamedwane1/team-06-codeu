@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Statistics</title>
+  </head>
+  <body>
+    <h1>Statistics</h1>
+    <script type="text/javascript"
+    src="https://www.gstatic.com/charts/loader.js"></script>
+    <script type="text/javascript">
+
+    //load Charts and the corechart package.
+    google.charts.load('current', {'packages': ['corechart']});
+
+    //Draw the pie chart for when abortions typically occur
+    google.charts.setOnLoadCallback(drawWhenChart);
+
+    //Draw the column chart for the cost of an abortion
+    google.charts.setOnLoadCallback(drawCostChart);
+    //Draw the column chart for the length of an abortion
+    google.charts.setOnLoadCallback(drawLengthChart);
+
+    //draw the ___ chart for types of procedures based on weeks of pregnancy
+    //google.charts.setOnLoadCallback(drawProcedureChart);
+
+    //Callback that draws the pie chart for when abortions typically occur
+    function drawWhenChart() {
+      var whenData = google.visualization.arrayToDataTable([
+        ['Weeks of Gestation' , 'Percentage'],
+        ['6 weeks or less', 34.2],
+        ['7-9 weeks' , 40],
+        ['10-12 weeks', 13.8],
+        ['13-15 weeks', 6.3],
+        ['16-20 weeks', 4.1],
+        ['21 weeks or more', 1.3]
+      ]);
+      var whenOptions = {
+        title: 'When Do Abortions Typically Occur? (by weeks of pregnancy)',
+        is3D: true
+      };
+      var whenChart = new google.visualization.PieChart(document.getElementById('whenChart_3D'));
+      whenChart.draw(whenData, whenOptions);
+    }
+    function drawCostChart() {
+      //cost of procedure
+      fetch("/costChart")
+      .then((response) => {
+        return response.json();
+      })
+      .then((costJson) => {
+        var costData = new google.visualization.DataTable();
+        costData.addColumn('string', 'Procedure');
+        costData.addColumn('number', 'Average Cost (in USD)');
+
+        for (i = 0; i < costJson.length; i++) {
+          costRow = [];
+          var procedure = costJson[i].procedure;
+          var cost = costJson[i].cost;
+          costRow.push(procedure, cost);
+          costData.addRow(costRow);
+        }
+        var costOptions = {
+          title: 'Cost of Abortion procedures',
+          width: 800, height: 500
+        };
+      var costChart =
+      new google.visualization.ColumnChart(document.getElementById('cost_chart'));
+      costChart.draw(costData, costOptions);
+      });
+    }
+
+    function drawLengthChart() {
+      //length of procedure
+      fetch("/lengthChart")
+      .then((response) => {
+        return response.json();
+      })
+      .then((lengthJson) => {
+        var lengthData = new google.visualization.DataTable();
+        lengthData.addColumn('string', 'Procedure');
+        lengthData.addColumn('number', 'Average length (in minutes)');
+
+        for (i = 0; i < lengthJson.length; i++) {
+          lengthRow = [];
+          var procedure = lengthJson[i].procedure;
+          var length = lengthJson[i].length;
+          lengthRow.push(procedure, length);
+          lengthData.addRow(lengthRow);
+        }
+        var lengthOptions = {
+          title: 'Length of Abortion procedures',
+          width: 800, height: 500
+        };
+      var lengthChart =
+      new google.visualization.ColumnChart(document.getElementById('length_chart'));
+      lengthChart.draw(lengthData, lengthOptions);
+      });
+    }
+
+    function drawProcedureChart() {
+      //types of procedures by weeks of pregnancy
+      fetch("/procedureChart")
+      .then((response) => {
+        return response.json();
+      })
+      .then((procedureJson) => {
+        var procedureData = new google.visualization.DataTable();
+        procedureData.addColumn('string','procedure');
+        procedureData.addColumn('String', 'Weeks of pregnancy');
+      for (i = 0; i < procedureJson.length; i++) {
+        procedureRow = [];
+        var procedure = procedureJson[i].procedure;
+        var weeks = procedureJson[i].weeksOfPregnancy;
+        procedureRow.push(procedure, weeks);
+        procedureData.addRow(procedureRow);
+      }
+      var procedureOptions = {
+        title: 'types of procedures',
+        width: 800, height: 500
+      };
+      var procedureChart =
+      new google.visualization.ColumnChart(document.getElementById('procedure_chart'));
+      procedureChart.draw(procedureData, procedureOptions);
+      })
+    }
+    </script>
+    <div id="whenChart_3D" style="width: 900px; height: 500px;"></div>
+    <div id="cost_chart"></div>
+    <div id="length_chart"></div>
+    <div id="procedure_chart"></div>
+  </body>
+</html>

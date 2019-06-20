@@ -53,7 +53,7 @@ public class Datastore {
 
   /**
    * Helper method to retrieve messages
-   * 
+   *
    */
   public void addMessage(List<Message> messages, Entity entity, String user) {
     String idString = entity.getKey().getName();
@@ -95,9 +95,9 @@ public class Datastore {
     return messages;
   }
 
-  /** 
+  /**
    * Gets all the messages by all the users
-   * 
+   *
    * @return a list of messages posted by all the users, or an empty list if
    * no user has written a message. The List is sorted by time descending.
    */
@@ -121,9 +121,9 @@ public class Datastore {
 
   return messages;
  }
-  /** 
+  /**
    * Gets all the users
-   * 
+   *
    * @return a set of users
    */
   public Set<String> getUsers(){
@@ -143,13 +143,13 @@ public class Datastore {
    userEntity.setProperty("aboutMe", user.getAboutMe());
    datastore.put(userEntity);
   }
-  
+
   /**
    * Returns the User owned by the email address, or
    * null if no matching User was found.
    */
   public User getUser(String email) {
-  
+
    Query query = new Query("User")
      .setFilter(new Query.FilterPredicate("email", FilterOperator.EQUAL, email));
    PreparedQuery results = datastore.prepare(query);
@@ -157,11 +157,16 @@ public class Datastore {
    if(userEntity == null) {
     return null;
    }
-   
+
    String aboutMe = (String) userEntity.getProperty("aboutMe");
    User user = new User(email, aboutMe);
-   
+
    return user;
+  }
+  
+
+    
+
   /** Returns the total number of messages for all users. */
   public int getTotalMessageCount(){
     Query query = new Query("Message");
