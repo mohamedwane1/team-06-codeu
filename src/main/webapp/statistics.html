@@ -7,21 +7,41 @@
     <h1>Statistics</h1>
     <script type="text/javascript"
     src="https://www.gstatic.com/charts/loader.js"></script>
+    <h2>General</h2>
+    <ul>
+      <li>19% of all pregnancies end in abortion</li>
+      <li>1 in 3 American women will have an abortion by age 45</li>
+      <li>6 in 10 women having abortions already have a child</li>
+    </ul>
     <script type="text/javascript">
 
     //load Charts and the corechart package.
     google.charts.load('current', {'packages': ['corechart']});
 
+    //Draw the pie chart  for racial distribution of abortions
+    google.charts.setOnLoadCallback(drawRaceChart);
+
     //Draw the pie chart for when abortions typically occur
     google.charts.setOnLoadCallback(drawWhenChart);
 
-    //Draw the column chart for the cost of an abortion
-    google.charts.setOnLoadCallback(drawCostChart);
-    //Draw the column chart for the length of an abortion
-    google.charts.setOnLoadCallback(drawLengthChart);
-
     //draw the ___ chart for types of procedures based on weeks of pregnancy
     //google.charts.setOnLoadCallback(drawProcedureChart);
+
+    function drawRaceChart() {
+      var raceData = google.visualization.arrayToDataTable([
+        ['Ethnic background' , 'Percentage'],
+        ['White',39],
+        ['Black',28],
+        ['Hispanic', 25],
+        ['Asian/Pacific Islander', 6],
+        ['Other', 3]
+      ]);
+      var raceOptions = {
+        title: 'Diversity Of U.S Abortion Patients',
+      };
+      var raceChart = new google.visualization.PieChart(document.getElementById('raceChart'));
+      raceChart.draw(raceData, raceOptions);
+    }
 
     //Callback that draws the pie chart for when abortions typically occur
     function drawWhenChart() {
@@ -41,6 +61,75 @@
       var whenChart = new google.visualization.PieChart(document.getElementById('whenChart_3D'));
       whenChart.draw(whenData, whenOptions);
     }
+    </script>
+    <div id="raceChart" style="width:800px; height: 500px;"></div>
+    <div id="whenChart_3D" style="width: 800px; height: 500px;"></div>
+
+    <h2>Procedures</h2>
+    <ul>
+      <li>Medication Abortion (The Abortion Pill)</li>
+        <ul>
+          <li>
+            When: 5-10 weeks into pregnancy
+          </li>
+          <li>
+            Pros: Fast, least invasive, and easiest to obtain
+          </li>
+          <li>
+            Cons: Requires multiple appointments, can be more
+            expensive than a surgical procedure, risk of needing
+            an additional procedure if there are complications
+          </li>
+        </ul>
+      <li>Aspiration Abortion</li>
+        <ul>
+          <li>
+            When: 5-12 weeks into pregnancy
+          </li>
+          <li>
+            Pros: quicker and cheaper than the pill, only requires
+            one appointment
+         </li>
+         <li>
+           Cons: Can take longer to schedule an appointment and/or
+           find a clinic that offers the procedure
+         </li>
+        </ul>
+      <li>Dilation and Evacuation</li>
+        <ul>
+          <li>
+            When: 9-21 weeks into pregnancy
+          </li>
+          <li>
+            Pros: safest way to terminate a pregnancy after 10 weeks
+          </li>
+          <li>
+            Cons: can be expensive and/or completely inaccesible in certain states
+          </li>
+        </ul>
+      <li>Dilation and Extraction</li>
+        <ul>
+          <li>
+            When: 16-24 weeks into pregnancy
+          </li>
+          <li>
+          Pros: low risk of major complications
+          </li>
+          <li>
+          Cons: Very expensive, hard to access,
+          very little data on them
+          </li>
+        </ul>
+    </ul>
+    <script type="text/javascript">
+    /*procedures charts */
+
+    google.charts.load('current', {'packages': ['corechart']});
+    //Draw the column chart for the cost of an abortion
+    google.charts.setOnLoadCallback(drawCostChart);
+    //Draw the column chart for the length of an abortion
+    google.charts.setOnLoadCallback(drawLengthChart);
+
     function drawCostChart() {
       //cost of procedure
       fetch("/costChart")
@@ -97,36 +186,8 @@
       });
     }
 
-    function drawProcedureChart() {
-      //types of procedures by weeks of pregnancy
-      fetch("/procedureChart")
-      .then((response) => {
-        return response.json();
-      })
-      .then((procedureJson) => {
-        var procedureData = new google.visualization.DataTable();
-        procedureData.addColumn('string','procedure');
-        procedureData.addColumn('String', 'Weeks of pregnancy');
-      for (i = 0; i < procedureJson.length; i++) {
-        procedureRow = [];
-        var procedure = procedureJson[i].procedure;
-        var weeks = procedureJson[i].weeksOfPregnancy;
-        procedureRow.push(procedure, weeks);
-        procedureData.addRow(procedureRow);
-      }
-      var procedureOptions = {
-        title: 'types of procedures',
-        width: 800, height: 500
-      };
-      var procedureChart =
-      new google.visualization.ColumnChart(document.getElementById('procedure_chart'));
-      procedureChart.draw(procedureData, procedureOptions);
-      })
-    }
     </script>
-    <div id="whenChart_3D" style="width: 900px; height: 500px;"></div>
     <div id="cost_chart"></div>
     <div id="length_chart"></div>
-    <div id="procedure_chart"></div>
   </body>
 </html>
