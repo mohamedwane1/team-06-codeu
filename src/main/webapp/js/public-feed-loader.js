@@ -1,55 +1,79 @@
-  // Fetch messages and add them to the page.
-  function fetchMessages(){
-    const url = '/feed';
-    fetch(url).then((response) => {
-      return response.json();
-    }).then((messages) => {
-      const messageContainer = document.getElementById('message-container');
-      if(messages.length == 0){
-       messageContainer.innerHTML = '<p>There are no posts yet.</p>';
-      }
-      else{
-       messageContainer.innerHTML = '';  
-      }
-      messages.forEach((message) => {  
-       const messageDiv = buildMessageDiv(message);
-       messageContainer.appendChild(messageDiv);
-      });
+const urlParams = new URLSearchParams(window.location.search);
+const parameterUsername = urlParams.get('user');
+
+// URL must include ?user=XYZ parameter. If not, redirect to homepage.
+if (parameterUsername) {
+  document.getElementById('message-form').classList.remove('hidden');
+} else {
+  document.getElementById('message-form-div').innerHTML = 'Please log in to comment!';
+}
+
+function fetchBlobstoreUrlAndShowForm() {
+  fetch('/blobstore-upload-url')
+    .then((response) => {
+      return response.text();
+    })
+    .then((imageUploadUrl) => {
+      const messageForm = document.getElementById('message-form');
+      messageForm.action = imageUploadUrl;
+      messageForm.classList.remove('hidden');
     });
-  }
-  
-  function buildMessageDiv(message){
-   const usernameDiv = document.createElement('div');
-   usernameDiv.classList.add("left-align");
-   usernameDiv.appendChild(document.createTextNode(message.user));
-   
-   const timeDiv = document.createElement('div');
-   timeDiv.classList.add('right-align');
-   timeDiv.appendChild(document.createTextNode(new Date(message.timestamp)));
-   
-   const headerDiv = document.createElement('div');
-   headerDiv.classList.add('message-header');
-   headerDiv.appendChild(usernameDiv);
-   headerDiv.appendChild(timeDiv);
-   
-   const bodyDiv = document.createElement('div');
-   bodyDiv.classList.add('message-body');
-   bodyDiv.innerHTML = message.text;
-   if (typeof message.imageUrl !== "undefined") {
-     const newImg = document.createElement("img");
-     newImg.setAttribute("src", message.imageUrl);
-     bodyDiv.appendChild(newImg);
-   }
-   
-   const messageDiv = document.createElement('div');
-   messageDiv.classList.add("message-div");
-   messageDiv.appendChild(headerDiv);
-   messageDiv.appendChild(bodyDiv);
-   
-   return messageDiv;
-  }
-  
-  // Fetch data and populate the UI of the page.
-  function buildUI(){
-   fetchMessages();
-  }
+
+}
+
+// Fetch messages and add them to the page.
+function fetchMessages(){
+  const url = '/feed';
+  fetch(url).then((response) => {
+    return response.json();
+  }).then((messages) => {
+    const messageContainer = document.getElementById('message-container');
+    if(messages.length == 0){
+     messageContainer.innerHTML = '<p>There are no posts yet.</p>';
+    }
+    else{
+     messageContainer.innerHTML = '';
+    }
+    messages.forEach((message) => {
+     const messageDiv = buildMessageDiv(message);
+     messageContainer.appendChild(messageDiv);
+    });
+  });
+}
+
+function buildMessageDiv(message){
+ const usernameDiv = document.createElement('div');
+ usernameDiv.classList.add("left-align");
+ usernameDiv.appendChild(document.createTextNode(message.user));
+
+ const timeDiv = document.createElement('div');
+ timeDiv.classList.add('right-align');
+ timeDiv.appendChild(document.createTextNode(new Date(message.timestamp)));
+
+ const headerDiv = document.createElement('div');
+ headerDiv.classList.add('message-header');
+ headerDiv.appendChild(usernameDiv);
+ headerDiv.appendChild(timeDiv);
+
+ const bodyDiv = document.createElement('div');
+ bodyDiv.classList.add('message-body');
+ bodyDiv.innerHTML = message.text;
+ if (typeof message.imageUrl !== "undefined") {
+   const newImg = document.createElement("img");
+   newImg.setAttribute("src", message.imageUrl);
+   bodyDiv.appendChild(newImg);
+ }
+
+ const messageDiv = document.createElement('div');
+ messageDiv.classList.add("message-div");
+ messageDiv.appendChild(headerDiv);
+ messageDiv.appendChild(bodyDiv);
+
+ return messageDiv;
+}
+
+/** Fetches data and populates the UI of the page. */
+function buildUI() {
+  fetchBlobstoreUrlAndShowForm();
+  fetchMessages();
+}

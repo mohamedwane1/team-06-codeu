@@ -19,8 +19,12 @@ const urlParams = new URLSearchParams(window.location.search);
 const parameterUsername = urlParams.get('user');
 
 // URL must include ?user=XYZ parameter. If not, redirect to homepage.
-if (!parameterUsername) {
-  window.location.replace('/');
+if (parameterUsername) {
+  const messageForm = document.getElementById('message-form');
+  messageForm.action = imageUploadUrl;
+  messageForm.classList.remove('hidden');
+} else {
+  document.getElementById('message-form-div').innerHTML = 'Please log in to comment!';
 }
 
 /** Sets the page title based on the URL parameter username. */
@@ -29,24 +33,6 @@ function setPageTitle() {
   document.title = parameterUsername + ' - User Page';
 }
 
-/**
- * Shows the message form if the user is logged in and viewing their own page.
- */
-function showMessageFormIfViewingSelf() {
-  fetch('/login-status')
-      .then((response) => {
-        return response.json();
-      })
-      .then((loginStatus) => {
-        if (loginStatus.isLoggedIn &&
-            loginStatus.username == parameterUsername) {
-          const messageForm = document.getElementById('message-form');
-          messageForm.classList.remove('hidden');
-        }
-      });
-      document.getElementById('about-me-form').classList.remove('hidden');
-
-}
 
 function fetchBlobstoreUrlAndShowForm() {
   fetch('/blobstore-upload-url')
@@ -61,38 +47,26 @@ function fetchBlobstoreUrlAndShowForm() {
 
 }
 
-function fetchBlobstoreUrlAndShowForm() {
-  fetch('/blobstore-upload-url')
-    .then((response) => {
-      return response.text();
-    })
-    .then((imageUploadUrl) => {
-      const messageForm = document.getElementById('message-form');
-      messageForm.action = imageUploadUrl;
-      messageForm.classList.remove('hidden');
-    });
-}
 
-/** Fetches messages and add them to the page. */
-function fetchMessages() {
-  const url = '/messages?user=' + parameterUsername;
-  fetch(url)
-      .then((response) => {
-        return response.json();
-      })
-      .then((messages) => {
-        const messagesContainer = document.getElementById('message-container');
-        if (messages.length == 0) {
-          messagesContainer.innerHTML = '<p>This user has no posts yet.</p>';
-        } else {
-          messagesContainer.innerHTML = '';
-        }
-        messages.forEach((message) => {
-          const messageDiv = buildMessageDiv(message);
-          messagesContainer.appendChild(messageDiv);
-        });
+// Fetch messages and add them to the page.
+  function fetchMessages(){
+    const url = '/feed';
+    fetch(url).then((response) => {
+      return response.json();
+    }).then((messages) => {
+      const messageContainer = document.getElementById('message-container');
+      if(messages.length == 0){
+       messageContainer.innerHTML = '<p>There are no posts yet.</p>';
+      }
+      else{
+       messageContainer.innerHTML = '';
+      }
+      messages.forEach((message) => {
+       const messageDiv = buildMessageDiv(message);
+       messageContainer.appendChild(messageDiv);
       });
-}
+    });
+  }
 
 /**
  * Builds an element that displays the message.
@@ -121,27 +95,10 @@ function buildMessageDiv(message) {
 
   return messageDiv;
 }
-/** Fetches user information and populates the page */
-function fetchAboutMe(){
-  const url = '/about?user=' + parameterUsername;
-  fetch(url).then((response) => {
-    return response.text();
-  }).then((aboutMe) => {
-    const aboutMeContainer = document.getElementById('about-me-container');
-    if(aboutMe == ''){
-      aboutMe = 'This user has not entered any information yet.';
-    }
-
-    aboutMeContainer.innerHTML = aboutMe;
-
-  });
-}
 
 /** Fetches data and populates the UI of the page. */
 function buildUI() {
   fetchBlobstoreUrlAndShowForm();
   setPageTitle();
-  showMessageFormIfViewingSelf();
   fetchMessages();
-  fetchAboutMe();
 }
