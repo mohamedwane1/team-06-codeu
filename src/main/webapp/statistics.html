@@ -15,23 +15,21 @@
     </ul>
     <script type="text/javascript">
 
-    //load Charts and the corechart package.
+    // load Charts and the corechart package.
     google.charts.load('current', {'packages': ['corechart']});
 
-    //Draw the pie chart  for racial distribution of abortions
+    // Draw the pie chart  for racial distribution of abortions
     google.charts.setOnLoadCallback(drawRaceChart);
 
-    //Draw the pie chart for when abortions typically occur
+    // Draw the pie chart for when abortions typically occur
     google.charts.setOnLoadCallback(drawWhenChart);
 
-    //draw the ___ chart for types of procedures based on weeks of pregnancy
-    //google.charts.setOnLoadCallback(drawProcedureChart);
 
     function drawRaceChart() {
       var raceData = google.visualization.arrayToDataTable([
         ['Ethnic background' , 'Percentage'],
-        ['White',39],
-        ['Black',28],
+        ['White', 39],
+        ['Black', 28],
         ['Hispanic', 25],
         ['Asian/Pacific Islander', 6],
         ['Other', 3]
@@ -43,12 +41,12 @@
       raceChart.draw(raceData, raceOptions);
     }
 
-    //Callback that draws the pie chart for when abortions typically occur
+    // Callback that draws the pie chart for when abortions typically occur
     function drawWhenChart() {
       var whenData = google.visualization.arrayToDataTable([
         ['Weeks of Gestation' , 'Percentage'],
         ['6 weeks or less', 34.2],
-        ['7-9 weeks' , 40],
+        ['7-9 weeks', 40],
         ['10-12 weeks', 13.8],
         ['13-15 weeks', 6.3],
         ['16-20 weeks', 4.1],
@@ -122,16 +120,16 @@
         </ul>
     </ul>
     <script type="text/javascript">
-    /*procedures charts */
+    // procedures charts
 
     google.charts.load('current', {'packages': ['corechart']});
-    //Draw the column chart for the cost of an abortion
+    // Draw the column chart for the cost of an abortion
     google.charts.setOnLoadCallback(drawCostChart);
-    //Draw the column chart for the length of an abortion
+    // Draw the column chart for the length of an abortion
     google.charts.setOnLoadCallback(drawLengthChart);
 
     function drawCostChart() {
-      //cost of procedure
+      // cost of procedure
       fetch("/costChart")
       .then((response) => {
         return response.json();
@@ -159,7 +157,7 @@
     }
 
     function drawLengthChart() {
-      //length of procedure
+      // length of procedure
       fetch("/lengthChart")
       .then((response) => {
         return response.json();
@@ -189,5 +187,82 @@
     </script>
     <div id="cost_chart"></div>
     <div id="length_chart"></div>
+    <h2>Abortion Laws</h2>
+    <script type="text/javascript">
+    google.charts.load('current', {'packages'  : ['geochart'],
+    'mapsApiKey': 'AIzaSyBe07-CG9ZcJEpo70rVTDKxsWU-KhFEl9k'
+  });
+  google.charts.setOnLoadCallback(drawLawMap);
+
+  function drawLawMap() {
+    var legalData = google.visualization.arrayToDataTable([
+      ['State' , 'Weeks of legality'],
+      ['Alabama', 6],
+      ['Alaska', 6],
+      ['Arizona', 24],
+      ['Arkansas', 18],
+      ['California', 24],
+      ['Colorado', 24],
+      ['Connecticut', 24],
+      ['Delaware', 20], // *restrictions apply
+      ['Florida', 24],// *restrictions apply
+      ['Georgia', 6],
+      ['Hawaii', 6],
+      ['Idaho', 24],
+      ['Illinois', 6],
+      ['Indiana', 14],
+      ['Iowa', 20],
+      ['Kansas', 6],
+      ['Kentucky', 6],
+      ['Louisiana', 6],
+      ['Maine', 6],
+      ['Maryland', 24],
+      ['Massachusetts', 24],
+      ['Michigan', 20],
+      ['Minnesota', 24],
+      ['Mississippi', 24],
+      ['Missouri', 8],
+      ['Montana', 6],
+      ['Nebraska', 24],
+      ['Nevada', 24],
+      ['New Hampshire', 24],
+      ['New Jersey', 24],
+      ['New Mexico', 24],
+      ['New York', 24],
+      ['North Carolina', 20],
+      ['North Dakota', 12],
+      ['Ohio', 6],
+      ['Oklahoma', 24],
+      ['Oregon', 40],
+      ['Pennsylvania', 24],
+      ['Rhode Island', 24],
+      ['South Carolina', 24],
+      ['South Dakota', 24],
+      ['Tennessee', 6],
+      ['Texas', 20],
+      ['Utah', 28],
+      ['Vermont', 40],
+      ['Virginia', 24],
+      ['Washington', 24],
+      ['West Virginia', 0],
+      ['Wisconsin', 21],
+      ['Wyoming', 6]
+    ]);
+    var legalOptions = {
+      sizeAxis: { minValue: 0, maxValue: 24},
+      region: 'US',
+      displayMode: 'regions',
+      colorAxis: {colors: ['red', 'green']},
+      backgroundColor: '#81d4fa',
+      datalessRegionColor: 'white',
+      defaultColor: '#f8bbd0',
+      resolution: 'provinces'
+    };
+    var legalChart = new google.visualization.GeoChart(
+      document.getElementById('legal_chart'));
+      legalChart.draw(legalData, legalOptions);
+  }
+  </script>
+  <div id="legal_chart" style="width: 900px; height: 500px;"></div>
   </body>
 </html>
