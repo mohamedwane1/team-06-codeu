@@ -16,6 +16,7 @@
 
 package com.google.codeu.data;
 
+import com.google.appengine.api.datastore.Cursor;
 import com.google.appengine.api.datastore.DatastoreService;
 import com.google.appengine.api.datastore.DatastoreServiceFactory;
 import com.google.appengine.api.datastore.Entity;
@@ -29,12 +30,14 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 import java.util.UUID;
+import javax.servlet.http.HttpServletRequest;
 
 /** Provides access to the data stored in Datastore. */
 public class Datastore {
 
   private DatastoreService datastore;
   private static final int MAX_ENTITIES = 1000;
+  static final int PAGE_SIZE = 6;
 
   public Datastore() {
     datastore = DatastoreServiceFactory.getDatastoreService();
@@ -102,25 +105,24 @@ public class Datastore {
    * no user has written a message. The List is sorted by time descending.
    */
   public List<Message> getAllMessages(){
-  List<Message> messages = new ArrayList<>();
+    List<Message> messages = new ArrayList<>();
 
-  Query query = new Query("Message")
-    .addSort("timestamp", SortDirection.DESCENDING);
-  PreparedQuery results = datastore.prepare(query);
+    Query query = new Query("Message")
+      .addSort("timestamp", SortDirection.DESCENDING);
+    PreparedQuery results = datastore.prepare(query);
 
-  for (Entity entity : results.asIterable()) {
-   try {
-    String user = (String) entity.getProperty("user");
-    addMessage(messages, entity, user);
-   } catch (Exception e) {
-    System.err.println("Error reading message.");
-    System.err.println(entity.toString());
-    e.printStackTrace();
-   }
+    for (Entity entity : results.asIterable()) {
+      try {
+        String user = (String) entity.getProperty("user");
+        addMessage(messages, entity, user);
+     } catch (Exception e) {
+        System.err.println("Error reading message.");
+        System.err.println(entity.toString());
+        e.printStackTrace();
+     }
+    }
+    return messages;
   }
-
-  return messages;
- }
   /**
    * Gets all the users
    *
