@@ -34,7 +34,7 @@ public class Message {
   public Message(String user, String text, String imageUrl) {
     this(UUID.randomUUID(), user, text, imageUrl, System.currentTimeMillis());
   }
-  
+
 
   public Message(UUID id, String user, String text, String imageUrl, long timestamp) {
     this.id = id;

@@ -19,11 +19,7 @@ const urlParams = new URLSearchParams(window.location.search);
 const parameterUsername = urlParams.get('user');
 
 // URL must include ?user=XYZ parameter. If not, redirect to homepage.
-if (parameterUsername) {
-  const messageForm = document.getElementById('message-form');
-  messageForm.action = imageUploadUrl;
-  messageForm.classList.remove('hidden');
-} else {
+if (!parameterUsername) {
   document.getElementById('message-form-div').innerHTML = 'Please log in to comment!';
 }
 
@@ -32,7 +28,6 @@ function setPageTitle() {
   document.getElementById('page-title').innerText = parameterUsername;
   document.title = parameterUsername + ' - User Page';
 }
-
 
 function fetchBlobstoreUrlAndShowForm() {
   fetch('/blobstore-upload-url')
@@ -46,7 +41,6 @@ function fetchBlobstoreUrlAndShowForm() {
     });
 
 }
-
 
 // Fetch messages and add them to the page.
   function fetchMessages(){
@@ -96,9 +90,72 @@ function buildMessageDiv(message) {
   return messageDiv;
 }
 
+// Change the content of the page to the current page content
+const POSTS_PER_PAGE = 5;
+var currentPage = 1;
+function changePage(page) {
+  var btnForward = document.getElementById("btn_forward");
+  var btnBack = document.getElementById("btn_back");
+  const url = '/feed';
+  fetch(url).then((response) => {
+      return response.json();
+   }).then((messages) => {
+    const NUM_PAGES = Math.ceil(messages.length / POSTS_PER_PAGE);
+    var messageContainer = document.getElementById("message-container");
+
+    // Validate page
+    if (page < 1) page = 1;
+    if (page > NUM_PAGES) page = NUM_PAGES;
+
+    if(messages.length == 0){
+     messageContainer.innerHTML = '<p>No posts on this page.</p>';
+    }
+    else {
+     messageContainer.innerHTML = '';
+    }
+    for (var i = (page-1) * POSTS_PER_PAGE; i < (page * POSTS_PER_PAGE) && i < messages.length; i++) {
+      const messageDiv = buildMessageDiv(messages[i]);
+      messageContainer.appendChild(messageDiv);
+    }
+    if (page == 1) {
+      btnBack.style.visibility = "hidden";
+    } else {
+      btnBack.style.visibility = "visible";
+    }
+    if (page == NUM_PAGES) {
+      btnForward.style.visibility = "hidden";
+    } else {
+      btnForward.style.visibility = "visible";
+    }
+  });
+}
+
+/**
+ * Navigate the message feed one page back
+ */
+function navigateBack() {
+  currentPage--;
+  changePage(currentPage);
+}
+
+/**
+ * Navigate the message feed one page forward
+ */
+function navigateForward() {
+  currentPage++;
+  changePage(currentPage);
+}
+
+// When the page loads render the first five elements
+window.onload = function() {
+  buildUI();
+  changePage(currentPage);
+};
+
+
+
 /** Fetches data and populates the UI of the page. */
 function buildUI() {
   fetchBlobstoreUrlAndShowForm();
   setPageTitle();
-  fetchMessages();
 }
