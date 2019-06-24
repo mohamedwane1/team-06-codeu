@@ -23,7 +23,7 @@ function createClinicsMap(){
       title: title
     });
     const infoWindow = new google.maps.InfoWindow({
-      content: description
+      content: title
     });
     marker.addListener('click', function() {
       infoWindow.open(map, marker);

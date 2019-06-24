@@ -16,6 +16,9 @@ import java.util.Scanner;
 @WebServlet("/clinics-data")
 public class ClinicDataServlet extends HttpServlet {
 
+  // Class constant for regex
+  private static final String SPLIT_REGEX_PATTERN = ",(?=(?:[^\"]*\"[^\"]*\")*[^\"]*$)"; 
+
   private JsonArray clinicArray;
 
   @Override
@@ -25,15 +28,16 @@ public class ClinicDataServlet extends HttpServlet {
     Scanner scanner = new Scanner(getServletContext().getResourceAsStream("/WEB-INF/clinics-data.csv"));
     while(scanner.hasNextLine()) {
       String line = scanner.nextLine();
-      String regex = ",(?=(?:[^\"]*\"[^\"]*\")*[^\"]*$)";
-      String[] cells = line.split(regex, -1);
+      String[] cells = line.split(SPLIT_REGEX_PATTERN, -1);
       
       // Initializes to a default value in case the data is faulty
       double lat = 0.0;
       double lng = 0.0;
       String title = "";
-      String description = "";
-      
+      String address = "";
+      String phoneNum = "";
+      String [] services = new String[1];
+
       // Implements checks on input data
       if (cells.length >= 2) {
         lat = Double.parseDouble(cells[0]);
@@ -46,12 +50,28 @@ public class ClinicDataServlet extends HttpServlet {
 
         // Add Description
         if (cells.length >= 4) {
-          description = title + ": \n \n" + cells[3];
+          address = cells[3];
+
+          // Get rid of quotes
+          if (address.charAt(0)=='\"') {
+            address = address.substring(1, address.length() - 1);
+          }
         }
+        System.out.println(address);
+        if (cells.length >= 5) {
+          phoneNum = cells[4];
+        }
+
+        if (cells.length >= 6) {
+          // Get rid of quotes
+          line = cells[5];
+          line = line.substring(1, (line.length() - 1));  
+          services = line.split(";");
+        }
+        
     }
-
-
-      clinicArray.add(gson.toJsonTree(new Clinic(lat, lng, title, description)));
+ 
+    clinicArray.add(gson.toJsonTree(new Clinic(lat, lng, title, address, phoneNum, services)));
     }
     scanner.close();
   }
@@ -67,13 +87,18 @@ public class ClinicDataServlet extends HttpServlet {
     double lat;
     double lng;
     String title;
-    String description;
+    String address;
+    String phoneNum; 
+    String[] services;
 
-    private Clinic(double lat, double lng, String title, String description) {
+    private Clinic(double lat, double lng, String title, String address, String phoneNum, 
+                    String [] services) {
       this.lat = lat;
       this.lng = lng;
       this.title = title;
-      this.description = description;
+      this.address = address;
+      this.phoneNum = phoneNum;
+      this.services = services;
     }
   }
 }
