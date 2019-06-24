@@ -25,13 +25,15 @@ public class ClinicDataServlet extends HttpServlet {
     Scanner scanner = new Scanner(getServletContext().getResourceAsStream("/WEB-INF/clinics-data.csv"));
     while(scanner.hasNextLine()) {
       String line = scanner.nextLine();
-      String[] cells = line.split(",");
-
+      String regex = ",(?=(?:[^\"]*\"[^\"]*\")*[^\"]*$)";
+      String[] cells = line.split(regex, -1);
+      
       // Initializes to a default value in case the data is faulty
       double lat = 0.0;
       double lng = 0.0;
       String title = "";
       String description = "";
+      
       // Implements checks on input data
       if (cells.length >= 2) {
         lat = Double.parseDouble(cells[0]);
@@ -47,6 +49,7 @@ public class ClinicDataServlet extends HttpServlet {
           description = title + ": \n \n" + cells[3];
         }
     }
+
 
       clinicArray.add(gson.toJsonTree(new Clinic(lat, lng, title, description)));
     }
