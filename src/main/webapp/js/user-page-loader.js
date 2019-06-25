@@ -24,9 +24,8 @@ if (!parameterUsername) {
 }
 
 /** Sets the page title based on the URL parameter username. */
-function setPageTitle() {
-  document.getElementById('page-title').innerText = parameterUsername;
-  document.title = parameterUsername + ' - User Page';
+function setUserName() {
+  document.getElementById('message-form-div').innerText = 'Enter a new message as ' + parameterUsername + ': ';
 }
 
 function fetchBlobstoreUrlAndShowForm() {
@@ -157,5 +156,5 @@ window.onload = function() {
 /** Fetches data and populates the UI of the page. */
 function buildUI() {
   fetchBlobstoreUrlAndShowForm();
-  setPageTitle();
+  setUserName();
 }
