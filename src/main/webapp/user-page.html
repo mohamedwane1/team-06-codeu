@@ -17,11 +17,12 @@ limitations under the License.
 <!DOCTYPE html>
 <html>
   <head>
-    <title>User Page</title>
+    <title>Forum</title>
     <meta charset="UTF-8">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
     <link rel="stylesheet" href="/css/main.css">
     <link rel="stylesheet" href="/css/user-page.css">
+    <link href="https://fonts.googleapis.com/css?family=Roboto&display=swap" rel="stylesheet">
     <script src="/js/user-page-loader.js"></script>
     <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
@@ -35,16 +36,16 @@ limitations under the License.
       </button>
       <div class="collapse navbar-collapse" id="navbarNav">
         <ul class="navbar-nav">
-          <li class="nav-item active">
+          <li class="nav-item">
             <a class="nav-link" href="/">Home <span class="sr-only">(current)</span></a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="/">Helpful Facts</a>
+            <a class="nav-link" href="/statistics.html">Helpful Facts</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="/">Resources</a>
+            <a class="nav-link" href="/maps.html">Resources</a>
           </li>
-          <li class="nav-item">
+          <li class="nav-item active">
             <a class="nav-link" href="#">Forum</a>
           </li>
           <li class="nav-item">
@@ -53,11 +54,10 @@ limitations under the License.
         </ul>
       </div>
     </nav>
-    <h1 id="page-title">User Page</h1>
+    <br>
 
     <div id="message-form-div"></div>
     <form id="message-form" action="/messages" method="POST" class="hidden" enctype="multipart/form-data">
-      Enter a new message:
       <br/>
       <textarea name="text" id="message-input"></textarea>
       <br/>
@@ -67,7 +67,7 @@ limitations under the License.
       </div>
     </form>
     <hr/>
-
+    <h3> Public Feed </h3>
     <div id="message-container">Loading...</div>
     <nav aria-label="Page navigation example" id="navigation-buttons">
       <ul class="pagination">
