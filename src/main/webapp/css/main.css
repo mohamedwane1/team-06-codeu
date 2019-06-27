@@ -31,3 +31,79 @@ nav li {
   display: inline-block;
   margin-right: 10px
 }
+
+/* Navigation bar on website */
+.navbar {
+  overflow: hidden;
+  border-radius: 0;
+  font-family: Verdana, Geneva, Tahoma, sans-serif;
+  font-size: 16px;
+  color: #ffffff;
+  min-height:5%;
+}
+
+.navbar-brand {
+  height: 5%;
+  line-height: 5%;
+}
+.navbar-toggle {
+  margin-top: 23px;
+  padding: 5px 5px;
+}
+
+.bg-steel {
+  background-color: rgba(94, 182, 253, 0.9);
+}
+
+.site-header .navbar-nav .nav-link {
+  color: #ffffff;
+}
+
+.site-header .navbar-nav .nav-item .nav-link:hover {
+  color: #ffffff;
+}
+
+.site-header .navbar-nav .nav-link.active {
+}
+
+.navbar-dark .navbar-nav .nav-link {
+    color: #ffffff;
+}
+
+.navbar-dark .navbar-nav .nav-link:hover {
+  border-bottom: 2px solid white;
+}
+
+/* Logo of the website */
+.logo {
+  font-size: 170%;
+  font-weight: 800;
+  font-family: Verdana, Geneva, Tahoma, sans-serif;
+}
+
+html {
+  background-color: rgb(248, 204, 212);
+  /* background: url(/WEB-INF/pink-pattern-background.png) no-repeat center center fixed; */
+  -webkit-background-size: cover;
+  -moz-background-size: cover;
+  -o-background-size: cover;
+  width: 100%;
+  height:100%;
+  background-size: cover;
+  font-family: Verdana, Geneva, Tahoma, sans-serif;
+}
+
+body {
+  height: 100%;
+  padding-top: 70px;
+  background: transparent;
+  font-size: 120%;
+  text-align: center;
+}
+
+
+/* Map Page */
+#map{
+  width: 500px;
+  height: 500px;
+}
