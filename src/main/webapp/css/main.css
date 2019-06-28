@@ -79,7 +79,7 @@ nav li {
 }
 
 html {
-  background-color: rgba(226, 96, 120, 0.781);
+  background-color: rgba(240, 183, 194, 0.781);
   /* background: url("/WEB-INF/pink-pattern-background.png") no-repeat center center fixed; */
   -webkit-background-size: cover;
   -moz-background-size: cover;
@@ -107,10 +107,20 @@ body {
 }
 
 #maps-heading{
-  color: rgb(4, 55, 80);
+  color: white;
 }
 
 #maps-subheading{
   color: powderblue;
   font-size: 1em;
+}
+
+#content-box{
+  background-color: rgba(4, 55, 80, 0.4);
+  border: 4px solid white;
+  border-radius: 5px;
+  padding: 5px 5px;
+}
+#more-info{
+  color: white;
 }
