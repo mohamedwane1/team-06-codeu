@@ -149,7 +149,7 @@ function addLoginOrLogout() {
       .then((loginStatus) => {
         if (loginStatus.isLoggedIn) {
           navigationElement.appendChild(createListItem(createLink('/logout', 'Logout')));
-          document.getElementById('message-form-div').innerText = 'Enter a new message as ' + parameterUsername + ': ';
+          document.getElementById('message-form-div').innerText = 'Enter a new message as ' + loginStatus.username + ': ';
         } else {
           navigationElement.appendChild(createListItem(createLink('/login', 'Login')));
           document.getElementById('message-form-div').innerText = 'Please log in to comment!';
