@@ -52,7 +52,7 @@ nav li {
 }
 
 .bg-steel {
-  background-color: rgba(94, 182, 253, 0.9);
+  background-color: rgba(4, 55, 80, 0.589);
 }
 
 .site-header .navbar-nav .nav-link {
@@ -61,9 +61,6 @@ nav li {
 
 .site-header .navbar-nav .nav-item .nav-link:hover {
   color: #ffffff;
-}
-
-.site-header .navbar-nav .nav-link.active {
 }
 
 .navbar-dark .navbar-nav .nav-link {
@@ -82,8 +79,8 @@ nav li {
 }
 
 html {
-  background-color: rgb(248, 204, 212);
-  /* background: url(/WEB-INF/pink-pattern-background.png) no-repeat center center fixed; */
+  background-color: rgba(226, 96, 120, 0.781);
+  /* background: url("/WEB-INF/pink-pattern-background.png") no-repeat center center fixed; */
   -webkit-background-size: cover;
   -moz-background-size: cover;
   -o-background-size: cover;
@@ -106,4 +103,14 @@ body {
 #map{
   width: 500px;
   height: 500px;
+  margin: 0 auto;
+}
+
+#maps-heading{
+  color: rgb(4, 55, 80);
+}
+
+#maps-subheading{
+  color: powderblue;
+  font-size: 1em;
 }
