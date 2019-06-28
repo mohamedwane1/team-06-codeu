@@ -23,21 +23,33 @@
 
 /* Give each message a rounded border. */
 .message-div {
-  border: thin solid #71a9f7;
+  border: thin solid #cf309c;
   border-radius: 5px;
   margin-top: 20px;
+  background: #ffd4ea;
+}
+
+/* Make login/logout button font white */
+a {
+  color: white;
+}
+
+/* Make the Image button left side */
+button, input {
+  overflow: visible;
+  float: left;
 }
 
 /* Add a bottom border to the message header. */
 .message-header {
-  background: #c6d8ff;
-  padding: 5px;
+  padding: 10px;
 }
 
 /* Give the message body a margin so the text
    isn't too close to the border. */
 .message-body {
-  margin: 5px;
+  text-align: left;
+  padding: 10px;
 }
 
 /* Use this to hide certain elements like forms if the
