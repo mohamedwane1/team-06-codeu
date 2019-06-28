@@ -57,7 +57,7 @@ public class ClinicDataServlet extends HttpServlet {
             address = address.substring(1, address.length() - 1);
           }
         }
-        System.out.println(address);
+       
         if (cells.length >= 5) {
           phoneNum = cells[4];
         }
