@@ -18,14 +18,16 @@
 const urlParams = new URLSearchParams(window.location.search);
 const parameterUsername = urlParams.get('user');
 
-// URL must include ?user=XYZ parameter. If not, redirect to homepage.
-if (!parameterUsername) {
-  document.getElementById('message-form-div').innerHTML = 'Please log in to comment!';
-}
-
 /** Sets the page title based on the URL parameter username. */
 function setUserName() {
-  document.getElementById('message-form-div').innerText = 'Enter a new message as ' + parameterUsername + ': ';
+  console.log(parameterUsername);
+  if (parameterUsername) {
+    document.getElementById('message-form-div').innerText = 'Enter a new message as ' + parameterUsername + ': ';
+    return;
+  }
+  document.getElementById('message-form-div').innerText = 'Please log in to comment!';
+  document.getElementById('message-form').style.display = 'none';
+  
 }
 
 function fetchBlobstoreUrlAndShowForm() {
@@ -151,10 +153,52 @@ window.onload = function() {
   changePage(currentPage);
 };
 
+// Logs user in or out depending on their status 
+function addLoginOrLogout() {
+  const navigationElement = document.getElementById('head-navbar');
 
+  fetch('/login-status')
+      .then((response) => {
+        return response.json();
+      })
+      .then((loginStatus) => {
+        if (loginStatus.isLoggedIn) {
+          navigationElement.appendChild(
+            createListItem(createLink('/logout', 'Logout')));
+        } else {
+          navigationElement.appendChild(
+              createListItem(createLink('/login', 'Login')));
+        }
+      });
+}
+
+/**
+ * Creates an li element.
+ * @param {Element} childElements
+ * @return {Element} li element
+ */
+function createListItem(childElement) {
+  const listItemElement = document.createElement('li');
+  listItemElement.appendChild(childElement);
+  return listItemElement;
+}
+
+/**
+ * Creates an anchor element.
+ * @param {string} url
+ * @param {string} text
+ * @return {Element} Anchor element
+ */
+function createLink(url, text) {
+  const linkElement = document.createElement('a');
+  linkElement.appendChild(document.createTextNode(text));
+  linkElement.href = url;
+  return linkElement;
+}
 
 /** Fetches data and populates the UI of the page. */
 function buildUI() {
+  addLoginOrLogout();
   fetchBlobstoreUrlAndShowForm();
   setUserName();
 }
