@@ -104,10 +104,20 @@ html {
 }
 
 #maps-heading{
-  color: rgb(4, 55, 80);
+  color: white;
 }
 
 #maps-subheading{
   color: powderblue;
   font-size: 1em;
+}
+
+#content-box{
+  background-color: rgba(4, 55, 80, 0.4);
+  border: 4px solid white;
+  border-radius: 5px;
+  padding: 5px 5px;
+}
+#more-info{
+  color: white;
 }
