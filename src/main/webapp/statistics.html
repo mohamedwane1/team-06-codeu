@@ -20,29 +20,26 @@
     </style>
   </head>
   <body>
-    <nav class="navbar navbar-expand-lg navbar-light bg-light">
-      <a class="navbar-brand" href="/">Team 6</a>
-      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+    <nav class="navbar navbar-expand-md navbar-dark fixed-top navbar-collapse bg-steel" id="head-navbar">
+      <div class="container">
+        <a class="navbar-brand mr-4 logo" href="/"><b>WebsiteName</b></a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarToggle" aria-controls="navbarToggle" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
-      </button>
-      <div class="collapse navbar-collapse" id="navbarNav">
-        <ul class="navbar-nav">
-          <li class="nav-item active">
-            <a class="nav-link" href="/">Home <span class="sr-only">(current)</span></a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="/statistics.html">Helpful Facts</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="/clinics-map.html">Resources</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="/feed.html">Forum</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="/aboutus.html">About Us</a>
-          </li>
-        </ul>
+        </button>
+
+        <!-- Left Side of Navbar -->
+        <div class="collapse navbar-collapse" id="navbarToggle">
+            <div class="navbar-nav mr-auto">
+              <a class="nav-item nav-link" href="/">Home</a>
+              <a class="nav-item nav-link" href="/aboutus.html">About</a>
+        </div>
+
+        <!-- Right Side of Navbar -->
+        <div class="nav navbar-nav pull-right">
+          <a class="nav-item nav-link mr-4" href="/statistics.html">Helpful Facts</a>
+          <a class="nav-item nav-link mr-4" href="/clinics-map.html">Resources</a>
+          <a class="nav-item nav-link mr-4" href="/user-page.html">Forum</a>
+        </div>
       </div>
     </nav>
    <h1>Helpful Facts</h1>
