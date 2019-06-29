@@ -4,10 +4,9 @@
     <title>Information</title>
     <meta charset="UTF-8">
     <link rel="stylesheet" href="/css/main.css">
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
     <style>
       body {
+        background: transparent;
         margin: auto;
       }
       nav {
@@ -78,6 +77,7 @@
       ]);
       var raceOptions = {
         title: 'Diversity Of U.S Abortion Patients',
+        backgroundColor: 'transparent'
       };
       var raceChart = new google.visualization.PieChart(document.getElementById('raceChart'));
       raceChart.draw(raceData, raceOptions);
@@ -96,7 +96,9 @@
       ]);
       var whenOptions = {
         title: 'When Do Abortions Typically Occur? (by weeks of pregnancy)',
-        is3D: true
+        is3D: true,
+        backgroundColor: 'transparent'
+
       };
       var whenChart = new google.visualization.PieChart(document.getElementById('whenChart_3D'));
       whenChart.draw(whenData, whenOptions);
@@ -191,7 +193,8 @@
         }
         var costOptions = {
           title: 'Cost of Abortion procedures',
-          width: 800, height: 500
+          width: 800, height: 500,
+          backgroundColor: 'transparent'
         };
       var costChart =
       new google.visualization.ColumnChart(document.getElementById('cost_chart'));
@@ -219,7 +222,8 @@
         }
         var lengthOptions = {
           title: 'Length of Abortion procedures',
-          width: 800, height: 500
+          width: 800, height: 500,
+          backgroundColor: 'transparent'
         };
       var lengthChart =
       new google.visualization.ColumnChart(document.getElementById('length_chart'));

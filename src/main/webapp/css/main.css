@@ -17,7 +17,12 @@
 body {
   max-width: 800px;
   margin: auto;
-  padding: 2em;
+  font-family: 'Roboto', sans-serif;
+  height: 100%;
+  padding-top: 3em;
+  background: transparent;
+  font-size: 120%;
+  text-align: center;
 }
 
 /* Remove bullet points from navigation bar. */
@@ -30,4 +35,79 @@ nav ul {
 nav li {
   display: inline-block;
   margin-right: 10px
+}
+
+/* Navigation bar on website */
+.navbar {
+  overflow: hidden;
+  border-radius: 0;
+  font-family: Verdana, Geneva, Tahoma, sans-serif;
+  font-size: 16px;
+  color: #ffffff;
+  min-height:5%;
+}
+
+.navbar-brand {
+  height: 5%;
+  line-height: 5%;
+}
+.navbar-toggle {
+  margin-top: 23px;
+  padding: 5px 5px;
+}
+
+.bg-steel {
+  background-color: rgba(4, 55, 80, 0.589);
+}
+
+.site-header .navbar-nav .nav-link {
+  color: #ffffff;
+}
+
+.site-header .navbar-nav .nav-item .nav-link:hover {
+  color: #ffffff;
+}
+
+.navbar-dark .navbar-nav .nav-link {
+    color: #ffffff;
+}
+
+.navbar-dark .navbar-nav .nav-link:hover {
+  border-bottom: 2px solid white;
+}
+
+/* Logo of the website */
+.logo {
+  font-size: 170%;
+  font-weight: 800;
+  font-family: Verdana, Geneva, Tahoma, sans-serif;
+}
+
+html {
+  background-color: rgba(226, 96, 120, 0.781);
+  /* background: url("/WEB-INF/pink-pattern-background.png") no-repeat center center fixed; */
+  -webkit-background-size: cover;
+  -moz-background-size: cover;
+  -o-background-size: cover;
+  width: 100%;
+  height:100%;
+  background-size: cover;
+  font-family: Verdana, Geneva, Tahoma, sans-serif;
+}
+
+
+/* Map Page */
+#map{
+  width: 500px;
+  height: 500px;
+  margin: 0 auto;
+}
+
+#maps-heading{
+  color: rgb(4, 55, 80);
+}
+
+#maps-subheading{
+  color: powderblue;
+  font-size: 1em;
 }
