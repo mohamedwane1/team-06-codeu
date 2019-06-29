@@ -10,21 +10,33 @@ function createClinicsMap(){
       });
 
       clinics.forEach((clinic) => {
-          addLandmark(map, clinic.lat, clinic.lng, clinic.title, clinic.description)
+          addLandmark(map, clinic.lat, clinic.lng, clinic.title, clinic.address, 
+            clinic.phoneNum, clinic.services)
       });
     });
   }
 
   /** Adds a marker that shows an info window when clicked. */
-  function addLandmark(map, lat, lng, title, description){
+  function addLandmark(map, lat, lng, title, address, phoneNum, services){
+
+    var contentString = "<h1>" + title + "</h1>" + "<br>" + "<h4>"+ 
+    address + "</h4>" + "<br>" + "<h4>" + phoneNum + "</h4>" + "<br>" 
+    + "<p> <b>" + "Services" + "</b>";
+    for (let i = 0; i <services.length; i++) {
+      contentString = contentString + "<br>" + services[i];
+    }
+    contentString = contentString + "</p";
+
+    const infoWindow = new google.maps.InfoWindow({
+      content: contentString
+    });
+
     const marker = new google.maps.Marker({
       position: {lat: lat, lng: lng},
       map: map,
       title: title
     });
-    const infoWindow = new google.maps.InfoWindow({
-      content: description
-    });
+    
     marker.addListener('click', function() {
       infoWindow.open(map, marker);
     });
