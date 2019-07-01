@@ -3,29 +3,17 @@
   <head>
     <title>Information</title>
     <meta charset="UTF-8">
-    <link rel="stylesheet" href="/css/main.css">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
-    <style>
-      body {
-        margin: auto;
-      }
-      nav {
-        font-family: 'Sofia', Arial, sans-serif;
+    <link rel="stylesheet" href="/css/main.css">
+    <link rel="stylesheet" href="/css/user-page.css">
 
-      }
-      h1 {
-        text-align: center;
-      }
-
-    </style>
   </head>
-  <body>
+  <body id="facts_body">
     <nav class="navbar navbar-expand-md navbar-dark fixed-top navbar-collapse bg-steel" id="head-navbar">
       <div class="container">
         <a class="navbar-brand mr-4 logo" href="/"><b>WebsiteName</b></a>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarToggle" aria-controls="navbarToggle" aria-expanded="false" aria-label="Toggle navigation">
-        <span class="navbar-toggler-icon"></span> 
+        <span class="navbar-toggler-icon"></span>
         </button>
 
         <!-- Left Side of Navbar -->
@@ -36,14 +24,15 @@
         </div>
 
         <!-- Right Side of Navbar -->
-        <div class="nav navbar-nav pull-right">  
-          <a class="nav-item nav-link mr-4" href="/statistics.html">Information</a>
+        <div class="nav navbar-nav pull-right">
+          <a class="nav-item nav-link mr-4" href="/statistics.html">Helpful Facts</a>
           <a class="nav-item nav-link mr-4" href="/clinics-map.html">Resources</a>
           <a class="nav-item nav-link mr-4" href="/user-page.html">Forum</a>
         </div>
       </div>
     </nav>
-   <h1>Helpful Facts</h1>
+    <br>
+   <h1 id="facts_title">Helpful Facts</h1>
     <script type="text/javascript"
     src="https://www.gstatic.com/charts/loader.js"></script>
     <h2>General</h2>
@@ -75,6 +64,7 @@
       ]);
       var raceOptions = {
         title: 'Diversity Of U.S Abortion Patients',
+        backgroundColor: 'transparent'
       };
       var raceChart = new google.visualization.PieChart(document.getElementById('raceChart'));
       raceChart.draw(raceData, raceOptions);
@@ -93,7 +83,9 @@
       ]);
       var whenOptions = {
         title: 'When Do Abortions Typically Occur? (by weeks of pregnancy)',
-        is3D: true
+        is3D: true,
+        backgroundColor: 'transparent'
+
       };
       var whenChart = new google.visualization.PieChart(document.getElementById('whenChart_3D'));
       whenChart.draw(whenData, whenOptions);
@@ -188,7 +180,8 @@
         }
         var costOptions = {
           title: 'Cost of Abortion procedures',
-          width: 800, height: 500
+          width: 800, height: 500,
+          backgroundColor: 'transparent'
         };
       var costChart =
       new google.visualization.ColumnChart(document.getElementById('cost_chart'));
@@ -216,7 +209,8 @@
         }
         var lengthOptions = {
           title: 'Length of Abortion procedures',
-          width: 800, height: 500
+          width: 800, height: 500,
+          backgroundColor: 'transparent'
         };
       var lengthChart =
       new google.visualization.ColumnChart(document.getElementById('length_chart'));

@@ -121,3 +121,12 @@ html {
 #more-info{
   color: white;
 }
+
+/* Facts Page */
+#facts_body{
+    text-align: left;
+}
+
+#facts_title{
+  text-align: center;
+}
