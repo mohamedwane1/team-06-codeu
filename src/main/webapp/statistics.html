@@ -64,7 +64,8 @@
       ]);
       var raceOptions = {
         title: 'Diversity Of U.S Abortion Patients',
-        backgroundColor: 'transparent'
+        backgroundColor: 'transparent',
+        pieHole: 0.4
       };
       var raceChart = new google.visualization.PieChart(document.getElementById('raceChart'));
       raceChart.draw(raceData, raceOptions);
@@ -181,7 +182,11 @@
         var costOptions = {
           title: 'Cost of Abortion procedures',
           width: 800, height: 500,
-          backgroundColor: 'transparent'
+          backgroundColor: 'transparent',
+          animation: {
+            duration: 1500,
+            "startup": true
+          }
         };
       var costChart =
       new google.visualization.ColumnChart(document.getElementById('cost_chart'));
@@ -210,7 +215,11 @@
         var lengthOptions = {
           title: 'Length of Abortion procedures',
           width: 800, height: 500,
-          backgroundColor: 'transparent'
+          backgroundColor: 'transparent',
+          animation: {
+            duration: 1500,
+            "startup": true
+          }
         };
       var lengthChart =
       new google.visualization.ColumnChart(document.getElementById('length_chart'));
