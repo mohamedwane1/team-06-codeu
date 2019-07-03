@@ -17,7 +17,7 @@
 body {
   max-width: 800px;
   margin: auto;
-  font-family: 'Roboto', sans-serif;
+  font-family: "Roboto", sans-serif;
   height: 100%;
   padding-top: 3em;
   background-color: #ffffff;
@@ -34,17 +34,17 @@ nav ul {
 /* Keep navigation menu on one line. */
 nav li {
   display: inline-block;
-  margin-right: 10px
+  margin-right: 10px;
 }
 
 /* Navigation bar on website */
 .navbar {
   overflow: hidden;
   border-radius: 0;
-  font-family: 'Merienda One', Verdana, Geneva, Tahoma, sans-serif;
+  font-family: "Merienda One", Verdana, Geneva, Tahoma, sans-serif;
   font-size: 16px;
   color: #ffffff;
-  min-height:5%;
+  min-height: 5%;
 }
 
 .navbar-brand {
@@ -71,7 +71,7 @@ nav li {
 }
 
 .navbar-dark .navbar-nav .nav-link {
-    color: #ffffff;
+  color: #ffffff;
 }
 
 .navbar-dark .navbar-nav .nav-link:hover {
@@ -82,7 +82,7 @@ nav li {
 .logo {
   font-size: 170%;
   font-weight: 800;
-  font-family: 'Merienda' , Verdana, Geneva, Tahoma, sans-serif;
+  font-family: "Merienda", Verdana, Geneva, Tahoma, sans-serif;
 }
 
 html {
@@ -93,44 +93,43 @@ html {
   -moz-background-size: cover;
   -o-background-size: cover;
   width: 100%;
-  height:100%;
+  height: 100%;
   background-size: cover;
   font-family: Verdana, Geneva, Tahoma, sans-serif;
 }
 
-
 /* Map Page */
-#map{
+#map {
   width: 500px;
   height: 500px;
   margin: 0 auto;
 }
 
-#maps-heading{
+#maps-heading {
   color: white;
 }
 
-#maps-subheading{
+#maps-subheading {
   color: powderblue;
   font-size: 1em;
 }
 
-#content-box{
+#content-box {
   /*background-color: rgba(4, 55, 80, 0.4)*/
   background-color: #f9407f;
   border: 4px solid white;
   border-radius: 5px;
   padding: 5px 5px;
 }
-#more-info{
+#more-info {
   color: white;
 }
 
 /* Facts Page */
-#facts_body{
-    text-align: left;
+#facts_body {
+  text-align: left;
 }
 
-#facts_title{
+#facts_title {
   text-align: center;
 }
