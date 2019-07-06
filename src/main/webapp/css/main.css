@@ -52,7 +52,7 @@ nav li {
 }
 
 .bg-steel {
-  background-color: rgba(4, 55, 80, 0.589);
+  background-color: rgba(114, 25, 90, 0.589);
 }
 
 .site-header .navbar-nav .nav-link {
@@ -79,7 +79,7 @@ nav li {
 }
 
 html {
-  background-color: rgba(226, 96, 120, 0.781);
+  background-color: rgba(1, 1, 1, 0.938);
   /* background: url("/WEB-INF/pink-pattern-background.png") no-repeat center center fixed; */
   -webkit-background-size: cover;
   -moz-background-size: cover;
@@ -116,7 +116,7 @@ body {
 }
 
 #content-box{
-  background-color: rgba(4, 55, 80, 0.4);
+  background-color: rgba(114, 25, 90, 0.4);
   border: 4px solid white;
   border-radius: 5px;
   padding: 5px 5px;
