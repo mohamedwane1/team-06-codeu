@@ -25,19 +25,22 @@ import com.google.appengine.api.datastore.PreparedQuery;
 import com.google.appengine.api.datastore.Query;
 import com.google.appengine.api.datastore.Query.FilterOperator;
 import com.google.appengine.api.datastore.Query.SortDirection;
+import com.google.appengine.api.datastore.QueryResultList;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 import java.util.UUID;
-import javax.servlet.http.HttpServletRequest;
 
 /** Provides access to the data stored in Datastore. */
 public class Datastore {
 
   private DatastoreService datastore;
   private static final int MAX_ENTITIES = 1000;
-  static final int PAGE_SIZE = 6;
+  static final int PAGE_SIZE = 5;
 
   public Datastore() {
     datastore = DatastoreServiceFactory.getDatastoreService();
@@ -58,7 +61,7 @@ public class Datastore {
    * Helper method to retrieve messages
    *
    */
-  public void addMessage(List<Message> messages, Entity entity, String user) {
+  public void addMessage(List<Object> messages, Entity entity, String user) {
     String idString = entity.getKey().getName();
     UUID id = UUID.fromString(idString);
     String text = (String) entity.getProperty("text");
@@ -66,7 +69,6 @@ public class Datastore {
     long timestamp = (long) entity.getProperty("timestamp");
 
     Message message = new Message(id, user, text, imageUrl, timestamp);
-    // Message message = new Message(id, user, text, timestamp);
     messages.add(message);
   }
 
@@ -76,8 +78,8 @@ public class Datastore {
    * @return a list of messages posted by the user, or empty list if user has never posted a
    *     message. List is sorted by time descending.
    */
-  public List<Message> getMessages(String user) {
-    List<Message> messages = new ArrayList<>();
+  public List<Object> getMessages(String user) {
+    List<Object> messages = new ArrayList<>();
 
     Query query =
         new Query("Message")
@@ -99,30 +101,36 @@ public class Datastore {
   }
 
   /**
-   * Gets all the messages by all the users
+   * Gets messages and cursor pointer information with size of PAGE_SIZE
+   * in the form of a QueryResult
    *
-   * @return a list of messages posted by all the users, or an empty list if
-   * no user has written a message. The List is sorted by time descending.
+   * @return a list of QueryResultList that store the data for user posts
+   *         and query cursor to the next page
    */
-  public List<Message> getAllMessages(){
-    List<Message> messages = new ArrayList<>();
+  public QueryResultList<Entity> getBatchMessages(HttpServletRequest req, HttpServletResponse resp)
+      throws IOException {
+    FetchOptions fetchOptions = FetchOptions.Builder.withLimit(PAGE_SIZE);
 
-    Query query = new Query("Message")
-      .addSort("timestamp", SortDirection.DESCENDING);
-    PreparedQuery results = datastore.prepare(query);
-
-    for (Entity entity : results.asIterable()) {
-      try {
-        String user = (String) entity.getProperty("user");
-        addMessage(messages, entity, user);
-     } catch (Exception e) {
-        System.err.println("Error reading message.");
-        System.err.println(entity.toString());
-        e.printStackTrace();
-     }
+    // If this servlet is passed a cursor parameter, let's use it.
+    String startCursor = req.getParameter("cursor");
+    if (startCursor != null) {
+      fetchOptions.startCursor(Cursor.fromWebSafeString(startCursor));
     }
-    return messages;
+
+    Query q = new Query("Message").addSort("timestamp", SortDirection.DESCENDING);
+    PreparedQuery pq = datastore.prepare(q);
+
+    QueryResultList<Entity> results;
+    try {
+      results = pq.asQueryResultList(fetchOptions);
+    } catch (IllegalArgumentException e) {
+      resp.sendRedirect("/feed.html");
+      return null;
+    }
+
+    return results;
   }
+
   /**
    * Gets all the users
    *
@@ -165,9 +173,6 @@ public class Datastore {
 
    return user;
   }
-  
-
-    
 
   /** Returns the total number of messages for all users. */
   public int getTotalMessageCount(){
