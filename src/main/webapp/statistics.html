@@ -3,45 +3,37 @@
   <head>
     <title>Information</title>
     <meta charset="UTF-8">
-    <link rel="stylesheet" href="/css/main.css">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
-    <style>
-      body {
-        margin: auto;
-      }
-      h1 {
-        text-align: center;
-      }
-    </style>
+    <link rel="stylesheet" href="/css/main.css">
+    <link rel="stylesheet" href="/css/user-page.css">
+    <link href="https://fonts.googleapis.com/css?family=Roboto&display=swap" rel="stylesheet">
+
   </head>
-  <body>
-    <nav class="navbar navbar-expand-lg navbar-light bg-light">
-      <a class="navbar-brand" href="#">Team 6</a>
-      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+  <body id="facts_body">
+    <nav class="navbar navbar-expand-md navbar-dark fixed-top navbar-collapse bg-steel" id="head-navbar">
+      <div class="container">
+        <a class="navbar-brand mr-4 logo" href="/"><b>Blossom</b></a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarToggle" aria-controls="navbarToggle" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
-      </button>
-      <div class="collapse navbar-collapse" id="navbarNav">
-        <ul class="navbar-nav">
-          <li class="nav-item active">
-            <a class="nav-link" href="/">Home <span class="sr-only">(current)</span></a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="/statistics.html">Helpful Facts</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="/clinics-map.html">Resources</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="/feed.html">Forum</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="/aboutus.html">About Us</a>
-          </li>
-        </ul>
+        </button>
+
+        <!-- Left Side of Navbar -->
+        <div class="collapse navbar-collapse" id="navbarToggle">
+            <div class="navbar-nav mr-auto">
+              <a class="nav-item nav-link" href="/">Home</a>
+              <a class="nav-item nav-link" href="/aboutus.html">About</a>
+        </div>
+
+        <!-- Right Side of Navbar -->
+        <div class="nav navbar-nav pull-right">
+          <a class="nav-item nav-link mr-4" href="/statistics.html">Helpful Facts</a>
+          <a class="nav-item nav-link mr-4" href="/clinics-map.html">Resources</a>
+          <a class="nav-item nav-link mr-4" href="/user-page.html">Forum</a>
+        </div>
       </div>
     </nav>
-   <h1>Statistics</h1>
+    <br>
+   <h1 id="facts_title">Helpful Facts</h1>
     <script type="text/javascript"
     src="https://www.gstatic.com/charts/loader.js"></script>
     <h2>General</h2>
@@ -73,6 +65,8 @@
       ]);
       var raceOptions = {
         title: 'Diversity Of U.S Abortion Patients',
+        backgroundColor: 'transparent',
+        pieHole: 0.4
       };
       var raceChart = new google.visualization.PieChart(document.getElementById('raceChart'));
       raceChart.draw(raceData, raceOptions);
@@ -91,7 +85,9 @@
       ]);
       var whenOptions = {
         title: 'When Do Abortions Typically Occur? (by weeks of pregnancy)',
-        is3D: true
+        is3D: true,
+        backgroundColor: 'transparent'
+
       };
       var whenChart = new google.visualization.PieChart(document.getElementById('whenChart_3D'));
       whenChart.draw(whenData, whenOptions);
@@ -102,57 +98,58 @@
 
     <h2>Procedures</h2>
     <ul>
-      <li>Medication Abortion (The Abortion Pill)</li>
+      <li><strong>Medication Abortion (The Abortion Pill)</strong>
+      </li>
         <ul>
           <li>
-            When: 5-10 weeks into pregnancy
+            <b>When:</b> 5-10 weeks into pregnancy
           </li>
           <li>
-            Pros: Fast, least invasive, and easiest to obtain
+            <b>Pros:</b> Fast, least invasive, and easiest to obtain
           </li>
           <li>
-            Cons: Requires multiple appointments, can be more
+            <b>Cons:</b> Requires multiple appointments, can be more
             expensive than a surgical procedure, risk of needing
             an additional procedure if there are complications
           </li>
         </ul>
-      <li>Aspiration Abortion</li>
+      <li><strong>Aspiration Abortion</strong></li>
         <ul>
           <li>
-            When: 5-12 weeks into pregnancy
+            <b>When:</b> 5-12 weeks into pregnancy
           </li>
           <li>
-            Pros: quicker and cheaper than the pill, only requires
+            <b>Pros:</b> quicker and cheaper than the pill, only requires
             one appointment
          </li>
          <li>
-           Cons: Can take longer to schedule an appointment and/or
+           <b>Cons:</b> Can take longer to schedule an appointment and/or
            find a clinic that offers the procedure
          </li>
         </ul>
-      <li>Dilation and Evacuation</li>
+      <li><strong>Dilation and Evacuation</strong></li>
         <ul>
           <li>
-            When: 9-21 weeks into pregnancy
+            <b>When:</b> 9-21 weeks into pregnancy
           </li>
           <li>
-            Pros: safest way to terminate a pregnancy after 10 weeks
+            <b>Pros:</b> safest way to terminate a pregnancy after 10 weeks
           </li>
           <li>
-            Cons: can be expensive and/or completely inaccesible in certain states
+            <b>Cons:</b> can be expensive and/or completely inaccesible in certain states
           </li>
         </ul>
-      <li>Dilation and Extraction</li>
+      <li><strong>Dilation and Extraction</strong></li>
         <ul>
           <li>
-            When: 16-24 weeks into pregnancy
+            <b>When:</b> 16-24 weeks into pregnancy
           </li>
           <li>
-          Pros: low risk of major complications
+            <b>Pros:</b> low risk of major complications
           </li>
           <li>
-          Cons: Very expensive, hard to access,
-          very little data on them
+            <b>Cons:</b> Very expensive, hard to access,
+            very little data on them
           </li>
         </ul>
     </ul>
@@ -185,7 +182,12 @@
         }
         var costOptions = {
           title: 'Cost of Abortion procedures',
-          width: 800, height: 500
+          width: 800, height: 500,
+          backgroundColor: 'transparent',
+          animation: {
+            duration: 1500,
+            "startup": true
+          }
         };
       var costChart =
       new google.visualization.ColumnChart(document.getElementById('cost_chart'));
@@ -213,7 +215,12 @@
         }
         var lengthOptions = {
           title: 'Length of Abortion procedures',
-          width: 800, height: 500
+          width: 800, height: 500,
+          backgroundColor: 'transparent',
+          animation: {
+            duration: 1500,
+            "startup": true
+          }
         };
       var lengthChart =
       new google.visualization.ColumnChart(document.getElementById('length_chart'));
@@ -301,5 +308,6 @@
   }
   </script>
   <div id="legal_chart" style="width: 900px; height: 500px;"></div>
+  <br>
   </body>
 </html>
