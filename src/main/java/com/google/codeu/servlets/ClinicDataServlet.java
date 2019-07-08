@@ -2,12 +2,11 @@ package com.google.codeu.servlets;
 
 import com.google.gson.Gson;
 import com.google.gson.JsonArray;
-import com.opencsv.CSVReader;
-import com.opencsv.bean.CsvBindByName;
 import com.opencsv.bean.CsvToBean;
 import com.opencsv.bean.CsvToBeanBuilder;
 
 import javax.servlet.annotation.WebServlet;
+import com.google.codeu.data.Clinic;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -15,10 +14,7 @@ import java.io.IOException;
 import java.io.Reader;
 import java.nio.file.Files;
 import java.nio.file.Paths;
-import java.util.ArrayList;
 import java.util.Iterator;
-import java.util.List;
-import java.util.Scanner;
 
 /**
  * Returns UFO data as a JSON array, e.g. [{"lat": 38.4404675, "lng": -122.7144313}]
@@ -44,15 +40,10 @@ public class ClinicDataServlet extends HttpServlet {
                     .withIgnoreLeadingWhiteSpace(true)
                     .build();
                     
-            //Iterator<Clinic> clinicIterator = csvToBean.iterator();
-            //System.out.println("hello");
-            //System.out.println("2");
-            while (csvToBean.iterator().hasNext()) {
-              System.out.println("hello");
-              Clinic clinic = csvToBean.iterator().next();
-              System.out.println("anything");
-              System.out.println(clinic.title);
-              
+            Iterator<Clinic> clinicIterator = csvToBean.iterator();
+
+            while (clinicIterator.hasNext()) {
+              Clinic clinic = clinicIterator.next();  
               clinicArray.add(gson.toJsonTree(clinic));
             }
         }
@@ -68,29 +59,4 @@ public class ClinicDataServlet extends HttpServlet {
     response.getOutputStream().println(clinicArray.toString());
   }
 
-  // This class could be its own file if we needed it outside this servlet
-  public class Clinic {
-    @CsvBindByName
-    private double lat;
-    @CsvBindByName
-    private double lng;
-    @CsvBindByName
-    private String title;
-    @CsvBindByName
-    private String address;
-    @CsvBindByName
-    private String phoneNum; 
-    @CsvBindByName
-    private String services;
-
-    private Clinic(double lat, double lng, String title, String address, String phoneNum, 
-                    String services) {
-      this.lat = lat;
-      this.lng = lng;
-      this.title = title;
-      this.address = address;
-      this.phoneNum = phoneNum;
-      this.services = services;
-    }
-  }
 }
