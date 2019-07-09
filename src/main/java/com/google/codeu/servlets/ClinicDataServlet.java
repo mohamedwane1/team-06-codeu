@@ -2,11 +2,11 @@ package com.google.codeu.servlets;
 
 import com.google.gson.Gson;
 import com.google.gson.JsonArray;
+import com.google.codeu.data.Clinic;
 import com.opencsv.bean.CsvToBean;
 import com.opencsv.bean.CsvToBeanBuilder;
 
 import javax.servlet.annotation.WebServlet;
-import com.google.codeu.data.Clinic;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
