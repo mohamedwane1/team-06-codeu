@@ -14,7 +14,9 @@
  * limitations under the License.
  */
 
-
+/**
+  Fetches images to display in the message
+*/
 function fetchBlobstoreUrlAndShowForm() {
   fetch('/blobstore-upload-url')
     .then((response) => {
@@ -27,26 +29,6 @@ function fetchBlobstoreUrlAndShowForm() {
     });
 
 }
-
-// Fetch messages and add them to the page.
-  function fetchMessages(){
-    const url = '/feed';
-    fetch(url).then((response) => {
-      return response.json();
-    }).then((messages) => {
-      const messageContainer = document.getElementById('message-container');
-      if(messages.length == 0){
-       messageContainer.innerHTML = '<p>There are no posts yet.</p>';
-      }
-      else{
-       messageContainer.innerHTML = '';
-      }
-      messages.forEach((message) => {
-       const messageDiv = buildMessageDiv(message);
-       messageContainer.appendChild(messageDiv);
-      });
-    });
-  }
 
 /**
  * Builds an element that displays the message.
@@ -76,86 +58,78 @@ function buildMessageDiv(message) {
   return messageDiv;
 }
 
-// Change the content of the page to the current page content
-const POSTS_PER_PAGE = 5;
-var currentPage = 1;
-function changePage(page) {
-  var btnForward = document.getElementById("btn_forward");
-  var btnBack = document.getElementById("btn_back");
-  const url = '/feed';
+/**
+ * Fetches endpoint and retrieve messages from a specific endpoint,
+ * stores previous cursors for the back button and gets the next
+ * cursor, builds the message body.
+ * @param {Cursor} currentCursor
+ * @return void
+ */
+function fetchMessages(currentCursor) {
+  var url = '/feed';
+  if (currentCursor) {
+    url = `${url}?cursor=${currentCursor}`;
+  }
   fetch(url).then((response) => {
-      return response.json();
-   }).then((messages) => {
-    const NUM_PAGES = Math.ceil(messages.length / POSTS_PER_PAGE);
-    var messageContainer = document.getElementById("message-container");
-
-    // Validate page
-    if (page < 1) page = 1;
-    if (page > NUM_PAGES) page = NUM_PAGES;
-
-    if(messages.length == 0){
-     messageContainer.innerHTML = '<p>No posts on this page.</p>';
+    return response.json();
+  }).then((messages) => {
+    const messageContainer = document.getElementById('message-container');
+    if (messages.length == 0) {
+      messageContainer.innerHTML = '<p>There are no posts yet.</p>';
     }
     else {
-     messageContainer.innerHTML = '';
+      messageContainer.innerHTML = '';
     }
-    for (var i = (page-1) * POSTS_PER_PAGE; i < (page * POSTS_PER_PAGE) && i < messages.length; i++) {
-      const messageDiv = buildMessageDiv(messages[i]);
-      messageContainer.appendChild(messageDiv);
-    }
-    if (page == 1) {
-      btnBack.style.visibility = "hidden";
-    } else {
-      btnBack.style.visibility = "visible";
-    }
-    if (page == NUM_PAGES) {
-      btnForward.style.visibility = "hidden";
-    } else {
-      btnForward.style.visibility = "visible";
-    }
+    addMessageAndCursorToPage(messages, messageContainer, currentCursor)
   });
 }
 
+var cursors = {}
 /**
- * Navigate the message feed one page back
+ * Updates the messages container div and populates the forward and
+ * backward buttons with the current cursor values
  */
-function navigateBack() {
-  currentPage--;
-  changePage(currentPage);
+function addMessageAndCursorToPage(messages, messageContainer, currentCursor) {
+  for (var i = 0; i < messages.length; i++) {
+    if (typeof messages[i] === "string") continue;
+    const messageDiv = buildMessageDiv(messages[i]);
+    messageContainer.appendChild(messageDiv);
+  }
+  if (cursors) {
+    document.getElementById("btn_back").onclick = () => fetchMessages(cursors[currentCursor])
+  }
+
+  if (messages[messages.length-1] !== currentCursor) {
+    cursors[messages[messages.length-1]] = currentCursor;
+    document.getElementById("btn_forward").style.visibility = "visible";
+    document.getElementById("btn_forward").onclick = () => fetchMessages(messages[messages.length-1]);
+  } else {
+    document.getElementById("btn_forward").style.visibility = "hidden";
+  }
 }
 
 /**
- * Navigate the message feed one page forward
+ * Logs user in or out depending on their status
+ * If a user is logged out, prompts log in function.
+ * If a user is logged in, prompts log out function.
  */
-function navigateForward() {
-  currentPage++;
-  changePage(currentPage);
-}
-
-// When the page loads render the first five elements
-window.onload = function() {
-  buildUI();
-  changePage(currentPage);
-};
-
-// Logs user in or out depending on their status 
 function addLoginOrLogout() {
   const navigationElement = document.getElementById('head-navbar');
 
   fetch('/login-status')
-      .then((response) => {
-        return response.json();
-      })
-      .then((loginStatus) => {
-        if (loginStatus.isLoggedIn) {
-          navigationElement.appendChild(createListItem(createLink('/logout', 'Logout')));
-          document.getElementById('message-form-div').innerText = 'Enter a new message as ' + loginStatus.username + ': ';
-        } else {
-          navigationElement.appendChild(createListItem(createLink('/login', 'Login')));
-          document.getElementById('message-form-div').innerText = 'Please log in to comment!';
-          document.getElementById('message-form').style.display = 'none';
-        }
-      });
+    .then((response) => {
+      return response.json();
+    })
+    .then((loginStatus) => {
+      if (loginStatus.isLoggedIn) {
+        navigationElement.appendChild(createListItem(createLink('/logout', 'Logout')));
+        document.getElementById('message-form-div').innerText = 'Enter a new message as ' + loginStatus.username + ': ';
+      } else {
+        navigationElement.appendChild(createListItem(createLink('/login', 'Login')));
+        document.getElementById('message-form-div').innerText = 'Please log in to comment!';
+        document.getElementById('message-form').style.display = 'none';
+      }
+    });
 }
 
 /**
@@ -187,3 +161,9 @@ function buildUI() {
   addLoginOrLogout();
   fetchBlobstoreUrlAndShowForm();
 }
+
+// When the page loads render the first five elements
+window.onload = function() {
+  buildUI();
+  fetchMessages("");
+};
