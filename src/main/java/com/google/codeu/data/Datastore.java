@@ -25,19 +25,21 @@ import com.google.appengine.api.datastore.PreparedQuery;
 import com.google.appengine.api.datastore.Query;
 import com.google.appengine.api.datastore.Query.FilterOperator;
 import com.google.appengine.api.datastore.Query.SortDirection;
+import com.google.appengine.api.datastore.QueryResultList;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 import java.util.UUID;
-import javax.servlet.http.HttpServletRequest;
 
 /** Provides access to the data stored in Datastore. */
 public class Datastore {
 
   private DatastoreService datastore;
   private static final int MAX_ENTITIES = 1000;
-  static final int PAGE_SIZE = 6;
 
   public Datastore() {
     datastore = DatastoreServiceFactory.getDatastoreService();
@@ -55,10 +57,10 @@ public class Datastore {
   }
 
   /**
-   * Helper method to retrieve messages
+   * Helper method to retrieve a message
    *
    */
-  public void addMessage(List<Message> messages, Entity entity, String user) {
+  public Message getMessage(Entity entity, String user) {
     String idString = entity.getKey().getName();
     UUID id = UUID.fromString(idString);
     String text = (String) entity.getProperty("text");
@@ -66,8 +68,7 @@ public class Datastore {
     long timestamp = (long) entity.getProperty("timestamp");
 
     Message message = new Message(id, user, text, imageUrl, timestamp);
-    // Message message = new Message(id, user, text, timestamp);
-    messages.add(message);
+    return message;
   }
 
   /**
@@ -76,8 +77,8 @@ public class Datastore {
    * @return a list of messages posted by the user, or empty list if user has never posted a
    *     message. List is sorted by time descending.
    */
-  public List<Message> getMessages(String user) {
-    List<Message> messages = new ArrayList<>();
+  public List<Object> getMessages(String user) {
+    List<Object> messages = new ArrayList<>();
 
     Query query =
         new Query("Message")
@@ -87,7 +88,7 @@ public class Datastore {
 
     for (Entity entity : results.asIterable()) {
       try {
-        addMessage(messages, entity, user);
+        messages.add(getMessage(entity, user));
       } catch (Exception e) {
         System.err.println("Error reading message.");
         System.err.println(entity.toString());
@@ -99,30 +100,16 @@ public class Datastore {
   }
 
   /**
-   * Gets all the messages by all the users
+   * Gets PreparedQuery object that contains message information and
+   * cursor for a request
    *
-   * @return a list of messages posted by all the users, or an empty list if
-   * no user has written a message. The List is sorted by time descending.
+   * @return a PreparedQuery object to enable querying the datastore
    */
-  public List<Message> getAllMessages(){
-    List<Message> messages = new ArrayList<>();
-
-    Query query = new Query("Message")
-      .addSort("timestamp", SortDirection.DESCENDING);
-    PreparedQuery results = datastore.prepare(query);
-
-    for (Entity entity : results.asIterable()) {
-      try {
-        String user = (String) entity.getProperty("user");
-        addMessage(messages, entity, user);
-     } catch (Exception e) {
-        System.err.println("Error reading message.");
-        System.err.println(entity.toString());
-        e.printStackTrace();
-     }
-    }
-    return messages;
+  public PreparedQuery getBatchMessages() {
+    Query q = new Query("Message").addSort("timestamp", SortDirection.DESCENDING);
+    return datastore.prepare(q);
   }
+
   /**
    * Gets all the users
    *
@@ -165,9 +152,6 @@ public class Datastore {
 
    return user;
   }
-  
-
-    
 
   /** Returns the total number of messages for all users. */
   public int getTotalMessageCount(){
