@@ -40,7 +40,6 @@ public class Datastore {
 
   private DatastoreService datastore;
   private static final int MAX_ENTITIES = 1000;
-  static final int PAGE_SIZE = 5;
 
   public Datastore() {
     datastore = DatastoreServiceFactory.getDatastoreService();
@@ -58,10 +57,10 @@ public class Datastore {
   }
 
   /**
-   * Helper method to retrieve messages
+   * Helper method to retrieve a message
    *
    */
-  public void addMessage(List<Object> messages, Entity entity, String user) {
+  public Message getMessage(Entity entity, String user) {
     String idString = entity.getKey().getName();
     UUID id = UUID.fromString(idString);
     String text = (String) entity.getProperty("text");
@@ -69,7 +68,7 @@ public class Datastore {
     long timestamp = (long) entity.getProperty("timestamp");
 
     Message message = new Message(id, user, text, imageUrl, timestamp);
-    messages.add(message);
+    return message;
   }
 
   /**
@@ -89,7 +88,7 @@ public class Datastore {
 
     for (Entity entity : results.asIterable()) {
       try {
-        addMessage(messages, entity, user);
+        messages.add(getMessage(entity, user));
       } catch (Exception e) {
         System.err.println("Error reading message.");
         System.err.println(entity.toString());
@@ -101,34 +100,14 @@ public class Datastore {
   }
 
   /**
-   * Gets messages and cursor pointer information with size of PAGE_SIZE
-   * in the form of a QueryResult
+   * Gets PreparedQuery object that contains message information and
+   * cursor for a request
    *
-   * @return a list of QueryResultList that store the data for user posts
-   *         and query cursor to the next page
+   * @return a PreparedQuery object to enable querying the datastore
    */
-  public QueryResultList<Entity> getBatchMessages(HttpServletRequest req, HttpServletResponse resp)
-      throws IOException {
-    FetchOptions fetchOptions = FetchOptions.Builder.withLimit(PAGE_SIZE);
-
-    // If this servlet is passed a cursor parameter, let's use it.
-    String startCursor = req.getParameter("cursor");
-    if (startCursor != null) {
-      fetchOptions.startCursor(Cursor.fromWebSafeString(startCursor));
-    }
-
+  public PreparedQuery getBatchMessages() {
     Query q = new Query("Message").addSort("timestamp", SortDirection.DESCENDING);
-    PreparedQuery pq = datastore.prepare(q);
-
-    QueryResultList<Entity> results;
-    try {
-      results = pq.asQueryResultList(fetchOptions);
-    } catch (IllegalArgumentException e) {
-      resp.sendRedirect("/feed.html");
-      return null;
-    }
-
-    return results;
+    return datastore.prepare(q);
   }
 
   /**

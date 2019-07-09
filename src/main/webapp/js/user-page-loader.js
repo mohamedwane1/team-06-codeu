@@ -59,18 +59,16 @@ function buildMessageDiv(message) {
 }
 
 /**
-  Fetches endpoint and retrieve messages from a specific endpoint.
-  Stores previous cursors for the back button and gets the next
-  cursors. Builds the message body.
-*/
-var cursors = {}
-// Fetch messages and add them to the page.
+ * Fetches endpoint and retrieve messages from a specific endpoint,
+ * stores previous cursors for the back button and gets the next
+ * cursor, builds the message body.
+ * @param {Cursor} currentCursor
+ * @return void
+ */
 function fetchMessages(currentCursor) {
   var url = '/feed';
-  if (!currentCursor) {
-    url = '/feed';
-  } else {
-    url = '/feed?cursor=' + currentCursor;
+  if (currentCursor) {
+    url = `${url}?cursor=${currentCursor}`;
   }
   fetch(url).then((response) => {
     return response.json();
@@ -82,30 +80,39 @@ function fetchMessages(currentCursor) {
     else {
       messageContainer.innerHTML = '';
     }
-    for (var i = 0; i < messages.length; i++) {
-      if (typeof messages[i] === "string") continue;
-      const messageDiv = buildMessageDiv(messages[i]);
-      messageContainer.appendChild(messageDiv);
-    }
-    if (cursors) {
-      document.getElementById("btn_back").onclick = () => fetchMessages(cursors[currentCursor])
-    }
-
-    if (messages[messages.length-1] !== currentCursor) {
-      cursors[messages[messages.length-1]] = currentCursor;
-      document.getElementById("btn_forward").style.visibility = "visible";
-      document.getElementById("btn_forward").onclick = () => fetchMessages(messages[messages.length-1]);
-    } else {
-      document.getElementById("btn_forward").style.visibility = "hidden";
-    }
+    addMessageAndCursorToPage(messages, messageContainer, currentCursor)
   });
 }
 
+var cursors = {}
 /**
-  Logs user in or out depending on their status
-  If a user is logged out, prompts log in function.
-  If a user is logged in, prompts log out function.
-*/
+ * Updates the messages container div and populates the forward and
+ * backward buttons with the current cursor values
+ */
+function addMessageAndCursorToPage(messages, messageContainer, currentCursor) {
+  for (var i = 0; i < messages.length; i++) {
+    if (typeof messages[i] === "string") continue;
+    const messageDiv = buildMessageDiv(messages[i]);
+    messageContainer.appendChild(messageDiv);
+  }
+  if (cursors) {
+    document.getElementById("btn_back").onclick = () => fetchMessages(cursors[currentCursor])
+  }
+
+  if (messages[messages.length-1] !== currentCursor) {
+    cursors[messages[messages.length-1]] = currentCursor;
+    document.getElementById("btn_forward").style.visibility = "visible";
+    document.getElementById("btn_forward").onclick = () => fetchMessages(messages[messages.length-1]);
+  } else {
+    document.getElementById("btn_forward").style.visibility = "hidden";
+  }
+}
+
+/**
+ * Logs user in or out depending on their status
+ * If a user is logged out, prompts log in function.
+ * If a user is logged in, prompts log out function.
+ */
 function addLoginOrLogout() {
   const navigationElement = document.getElementById('head-navbar');
 
