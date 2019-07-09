@@ -86,9 +86,6 @@ nav li {
 }
 
 html {
-  /*background-color: rgba(226, 96, 120, 0.781);*/
-  /*background-color: #F291B5*
-  /* background: url("/WEB-INF/pink-pattern-background.png") no-repeat center center fixed; */
   -webkit-background-size: cover;
   -moz-background-size: cover;
   -o-background-size: cover;
@@ -123,6 +120,31 @@ html {
 }
 #more-info {
   color: white;
+}
+
+/* Loader Formatting */
+.loader {
+  margin: 0 auto;
+  border: 16px solid #f3f3f3;
+  border-radius: 50%;
+  border-top: 16px solid rgb(255, 0, 157);
+  border-right: 16px solid rgb(113, 0, 128);
+  border-bottom: 16px solid rgb(140, 0, 255);
+  border-left: 16px solid rgb(230, 120, 211);
+  width: 120px;
+  height: 120px;
+  -webkit-animation: spin 2s linear infinite;
+  animation: spin 2s linear infinite;
+}
+
+@-webkit-keyframes spin {
+  0% { -webkit-transform: rotate(0deg); }
+  100% { -webkit-transform: rotate(360deg); }
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
 }
 
 /* Facts Page */

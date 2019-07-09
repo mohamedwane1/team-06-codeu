@@ -21,11 +21,7 @@ function createClinicsMap(){
 
     var contentString = "<h1>" + title + "</h1>" + "<br>" + "<h4>"+ 
     address + "</h4>" + "<br>" + "<h4>" + phoneNum + "</h4>" + "<br>" 
-    + "<p> <b>" + "Services" + "</b>";
-    for (let i = 0; i <services.length; i++) {
-      contentString = contentString + "<br>" + services[i];
-    }
-    contentString = contentString + "</p";
+    + "<p> <b>" + "Services" + "</b> <br>" + services + "</p>";
 
     const infoWindow = new google.maps.InfoWindow({
       content: contentString

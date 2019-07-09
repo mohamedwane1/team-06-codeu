@@ -14,9 +14,11 @@
  * limitations under the License.
  */
 
+
 /**
   Fetches images to display in the message
 */
+
 function fetchBlobstoreUrlAndShowForm() {
   fetch('/blobstore-upload-url')
     .then((response) => {
@@ -132,6 +134,7 @@ function addLoginOrLogout() {
     });
 }
 
+
 /**
  * Creates an li element.
  * @param {Element} childElements
@@ -144,6 +147,7 @@ function createListItem(childElement) {
 }
 
 /**
+
  * Creates an anchor element.
  * @param {string} url
  * @param {string} text
