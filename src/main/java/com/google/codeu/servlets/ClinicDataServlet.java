@@ -1,8 +1,9 @@
 package com.google.codeu.servlets;
 
+import com.google.codeu.data.Clinic;
 import com.google.gson.Gson;
 import com.google.gson.JsonArray;
-import com.google.codeu.data.Clinic;
+
 import com.opencsv.bean.CsvToBean;
 import com.opencsv.bean.CsvToBeanBuilder;
 
@@ -17,7 +18,7 @@ import java.nio.file.Paths;
 import java.util.Iterator;
 
 /**
- * Returns UFO data as a JSON array, e.g. [{"lat": 38.4404675, "lng": -122.7144313}]
+ * Returns Clinic data as a JSON array, e.g. [{"lat": 38.4404675, "lng": -122.7144313}]
  */
 @WebServlet("/clinics-data")
 public class ClinicDataServlet extends HttpServlet {
