@@ -97,8 +97,11 @@ function addMessageAndCursorToPage(messages, messageContainer, currentCursor) {
     const messageDiv = buildMessageDiv(messages[i]);
     messageContainer.appendChild(messageDiv);
   }
-  if (cursors) {
+  if (cursors && currentCursor !== '') {
+    document.getElementById("btn_back").style.visibility = "visible";
     document.getElementById("btn_back").onclick = () => fetchMessages(cursors[currentCursor])
+  } else {
+    document.getElementById("btn_back").style.visibility = "hidden";
   }
 
   if (messages[messages.length-1] !== currentCursor) {
