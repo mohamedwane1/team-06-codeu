@@ -231,7 +231,7 @@
     </script>
     <div id="cost_chart"></div>
     <div id="length_chart"></div>
-    <h2>Abortion Laws</h2>
+    <h2>Laws & Policies</h2>
     <script type="text/javascript">
     google.charts.load('current', {'packages'  : ['geochart'],
     'mapsApiKey': 'AIzaSyBe07-CG9ZcJEpo70rVTDKxsWU-KhFEl9k'
@@ -239,60 +239,71 @@
   google.charts.setOnLoadCallback(drawLawMap);
 
   function drawLawMap() {
-    var legalData = google.visualization.arrayToDataTable([
-      ['State' , 'Weeks of legality'],
-      ['Alabama', 6],
-      ['Alaska', 6],
-      ['Arizona', 24],
-      ['Arkansas', 18],
-      ['California', 24],
-      ['Colorado', 24],
-      ['Connecticut', 24],
-      ['Delaware', 20], // *restrictions apply
-      ['Florida', 24],// *restrictions apply
-      ['Georgia', 6],
-      ['Hawaii', 6],
-      ['Idaho', 24],
-      ['Illinois', 6],
-      ['Indiana', 14],
-      ['Iowa', 20],
-      ['Kansas', 6],
-      ['Kentucky', 6],
-      ['Louisiana', 6],
-      ['Maine', 6],
-      ['Maryland', 24],
-      ['Massachusetts', 24],
-      ['Michigan', 20],
-      ['Minnesota', 24],
-      ['Mississippi', 24],
-      ['Missouri', 8],
-      ['Montana', 6],
-      ['Nebraska', 24],
-      ['Nevada', 24],
-      ['New Hampshire', 24],
-      ['New Jersey', 24],
-      ['New Mexico', 24],
-      ['New York', 24],
-      ['North Carolina', 20],
-      ['North Dakota', 12],
-      ['Ohio', 6],
-      ['Oklahoma', 24],
-      ['Oregon', 40],
-      ['Pennsylvania', 24],
-      ['Rhode Island', 24],
-      ['South Carolina', 24],
-      ['South Dakota', 24],
-      ['Tennessee', 6],
-      ['Texas', 20],
-      ['Utah', 28],
-      ['Vermont', 40],
-      ['Virginia', 24],
-      ['Washington', 24],
-      ['West Virginia', 0],
-      ['Wisconsin', 21],
-      ['Wyoming', 6]
+    var legalData = new google.visualization.DataTable();
+    legalData.addColumn('string', 'State');
+    // Use custom HTML content for the domain tooltip.
+    legalData.addColumn('number', 'Legal up to: ');
+    legalData.addColumn({'type': 'string', 'role': 'tooltip', 'p': {'html': true}});
+    legalData.addRows([
+      ['Alabama', 6, createCustomHTMLContent(6, 'https://upload.wikimedia.org/wikipedia/commons/5/5c/Flag_of_Alabama.svg',
+       'All abortions are considered illegal unless it\'s determined to be necessary to prevent a serious health risk to the unborn child\'s mother.')],
+      ['Alaska', 6, createCustomHTMLContent(6, 'https://upload.wikimedia.org/wikipedia/commons/e/e6/Flag_of_Alaska.svg',
+       'All abortions are considered illegal unless performed before fetus heartbeat is detected.')],
+      ['Arizona', 24, createCustomHTMLContent(24, 'https://upload.wikimedia.org/wikipedia/commons/9/9d/Flag_of_Arizona.svg',
+      'All abortions are considered a felony unless performed to save the life of the mother.')],
+      ['Arkansas', 18, createCustomHTMLContent(18, 'https://upload.wikimedia.org/wikipedia/commons/9/9d/Flag_of_Arkansas.svg',
+      'Abortions are illegal after the period of quickening, which usually occurs between 16 to 20 weeks into pregnancy.')],
+      ['California', 24, createCustomHTMLContent(24,'https://upload.wikimedia.org/wikipedia/commons/0/01/Flag_of_California.svg', 'none')],/*
+      ['Colorado', 24, createCustomHTMLContent('', '')],
+      ['Connecticut', 24, createCustomHTMLContent('', '')],
+      ['Delaware', 20, createCustomHTMLContent('', '')], // *restrictions apply
+      ['Florida', 24, createCustomHTMLContent('', '')],// *restrictions apply
+      ['Georgia', 6, createCustomHTMLContent('', '')],
+      ['Hawaii', 6, createCustomHTMLContent('', '')],
+      ['Idaho', 24, createCustomHTMLContent('', '')],
+      ['Illinois', 6, createCustomHTMLContent('', '')],
+      ['Indiana', 14, createCustomHTMLContent('', '')],
+      ['Iowa', 20, createCustomHTMLContent('', '')],
+      ['Kansas', 6, createCustomHTMLContent('', '')],
+      ['Kentucky', 6, createCustomHTMLContent('', '')],
+      ['Louisiana', 6, createCustomHTMLContent('', '')],
+      ['Maine', 6, createCustomHTMLContent('', '')],
+      ['Maryland', 24, createCustomHTMLContent('', '')],
+      ['Massachusetts', 24, createCustomHTMLContent('', '')],
+      ['Michigan', 20, createCustomHTMLContent('', '')],
+      ['Minnesota', 24, createCustomHTMLContent('', '')],
+      ['Mississippi', 24, createCustomHTMLContent('', '')],
+      ['Missouri', 8, createCustomHTMLContent('', '')],
+      ['Montana', 6, createCustomHTMLContent('', '')],
+      ['Nebraska', 24, createCustomHTMLContent('', '')],
+      ['Nevada', 24, createCustomHTMLContent('', '')],
+      ['New Hampshire', 24, createCustomHTMLContent('', '')],
+      ['New Jersey', 24, createCustomHTMLContent('', '')],
+      ['New Mexico', 24, createCustomHTMLContent('', '')],
+      ['New York', 24, createCustomHTMLContent('', '')],
+      ['North Carolina', 20, createCustomHTMLContent('', '')],
+      ['North Dakota', 12, createCustomHTMLContent('', '')],
+      ['Ohio', 6, createCustomHTMLContent('', '')],
+      ['Oklahoma', 24], createCustomHTMLContent('', ''),
+      ['Oregon', 40, createCustomHTMLContent('', '')],
+      ['Pennsylvania', 24, createCustomHTMLContent('', '')],
+      ['Rhode Island', 24, createCustomHTMLContent('', '')],
+      ['South Carolina', 24, createCustomHTMLContent('', '')],
+      ['South Dakota', 24, createCustomHTMLContent('', '')],
+      ['Tennessee', 6, createCustomHTMLContent('', '')],
+      ['Texas', 20, createCustomHTMLContent('', '')],
+      ['Utah', 28, createCustomHTMLContent('', '')],
+      ['Vermont', 40, createCustomHTMLContent('', '')],
+      ['Virginia', 24, createCustomHTMLContent('', '')],
+      ['Washington', 24, createCustomHTMLContent('', '')],
+      ['West Virginia', 0, createCustomHTMLContent('', '')],
+      ['Wisconsin', 21, createCustomHTMLContent('', '')],
+      ['Wyoming', 6, createCustomHTMLContent('', '')]*/
     ]);
+
     var legalOptions = {
+      focusTarget: 'category',
+      tooltip: { isHtml: true },
       sizeAxis: { minValue: 0, maxValue: 24},
       region: 'US',
       displayMode: 'regions',
@@ -305,6 +316,13 @@
     var legalChart = new google.visualization.GeoChart(
       document.getElementById('legal_chart'));
       legalChart.draw(legalData, legalOptions);
+  }
+
+  function createCustomHTMLContent(weeksOfLegality, flagURL, restrictions){
+    return '<div style="width: 100px">' +
+    '<img src="' + flagURL + '" style="width:75px;height:50px"; text-align: center><br/>' +
+    '<b>Legal  up to: </b><br>' + weeksOfLegality + ' weeks<br>' +
+    '<b>Restrictions: </b><br>' + restrictions;
   }
   </script>
   <div id="legal_chart" style="width: 900px; height: 500px;"></div>
