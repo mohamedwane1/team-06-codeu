@@ -181,8 +181,8 @@ html {
 /*Style of collapsible button
 */
 .collapsible {
-  background-color: #eee;
-  color: black;
+  background-color: #f9407f;
+  color: white;
   cursor: pointer;
   padding: 18px;
   width: 100%;
@@ -194,7 +194,7 @@ html {
 .collapsible:after {
   content: '\02795'; /* Unicode character for "plus" sign (+) */
   font-size: 13px;
-  color: white;
+  color: black;
   float: right;
   margin-left: 5px;
 }
@@ -205,7 +205,7 @@ html {
 
 /* Add a background color to the button if it is clicked on (add the .active class with JS), and when you move the mouse over it (hover) */
 .active, .collapsible:hover {
-  background-color: #ccc;
+  background-color: #ea3c77;
 }
 
 /* Style the collapsible content. Note: hidden by default */
