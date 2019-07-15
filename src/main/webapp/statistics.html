@@ -97,10 +97,10 @@
     <div id="whenChart_3D" style="width: 800px; height: 500px;"></div>
 
     <h2>Procedures</h2>
-    <ul>
-      <li><strong>Medication Abortion (The Abortion Pill)</strong>
-      </li>
-        <ul>
+      <button class="collapsible">
+        <strong>Medication Abortion (The Abortion Pill)</strong>
+      </button>
+        <ul class="content">
           <li>
             <b>When:</b> 5-10 weeks into pregnancy
           </li>
@@ -113,8 +113,10 @@
             an additional procedure if there are complications
           </li>
         </ul>
-      <li><strong>Aspiration Abortion</strong></li>
-        <ul>
+      <button class="collapsible">
+        <strong>Aspiration Abortion</strong>
+      </button>
+        <ul class="content">
           <li>
             <b>When:</b> 5-12 weeks into pregnancy
           </li>
@@ -127,8 +129,10 @@
            find a clinic that offers the procedure
          </li>
         </ul>
-      <li><strong>Dilation and Evacuation</strong></li>
-        <ul>
+      <button class="collapsible">
+        <strong>Dilation and Evacuation</strong>
+      </button>
+        <ul class="content">
           <li>
             <b>When:</b> 9-21 weeks into pregnancy
           </li>
@@ -139,8 +143,10 @@
             <b>Cons:</b> can be expensive and/or completely inaccesible in certain states
           </li>
         </ul>
-      <li><strong>Dilation and Extraction</strong></li>
-        <ul>
+      <button class="collapsible">
+        <strong>Dilation and Extraction</strong>
+      </button>
+        <ul class="content">
           <li>
             <b>When:</b> 16-24 weeks into pregnancy
           </li>
@@ -152,10 +158,24 @@
             very little data on them
           </li>
         </ul>
-    </ul>
+        <script>
+        var coll = document.getElementsByClassName("collapsible");
+        var i;
+
+        for (i = 0; i < coll.length; i++) {
+          coll[i].addEventListener("click", function() {
+            this.classList.toggle("active");
+            var content = this.nextElementSibling;
+            if (content.style.maxHeight){
+              content.style.maxHeight = null;
+            } else {
+              content.style.maxHeight = content.scrollHeight + "px";
+            }
+          });
+        }
+        </script>
     <script type="text/javascript">
     // procedures charts
-
     google.charts.load('current', {'packages': ['corechart']});
     // Draw the column chart for the cost of an abortion
     google.charts.setOnLoadCallback(drawCostChart);
