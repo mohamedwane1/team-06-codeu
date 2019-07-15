@@ -13,6 +13,29 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+ @font-face {
+     font-family: 'meriendabold';
+     src: url('meriendaFonts/merienda-bold-webfont.woff2') format('woff2'),
+          url('meriendaFonts/merienda-bold-webfont.woff') format('woff');
+     font-weight: normal;
+     font-style: normal;
+ }
+
+ @font-face {
+     font-family: 'meriendaregular';
+     src: url('meriendaFonts/merienda-regular-webfont.woff2') format('woff2'),
+          url('meriendaFonts/merienda-regular-webfont.woff') format('woff');
+     font-weight: normal;
+     font-style: normal;
+ }
+
+ @font-face {
+     font-family: 'merienda_oneregular';
+     src: url('meriendaFonts/meriendaone-regular-webfont.woff2') format('woff2'),
+          url('meriendaFonts/meriendaone-regular-webfont.woff') format('woff');
+     font-weight: normal;
+     font-style: normal;
+ }
 
 body {
   max-width: 800px;
@@ -41,7 +64,7 @@ nav li {
 .navbar {
   overflow: hidden;
   border-radius: 0;
-  font-family: "Merienda One", Verdana, Geneva, Tahoma, sans-serif;
+  font-family: "merienda_oneregular", Verdana, Geneva, Tahoma, sans-serif;
   font-size: 16px;
   color: #ffffff;
   min-height: 5%;
@@ -82,7 +105,7 @@ nav li {
 .logo {
   font-size: 170%;
   font-weight: 800;
-  font-family: "Merienda", Verdana, Geneva, Tahoma, sans-serif;
+  font-family: "meriendaregular", Verdana, Geneva, Tahoma, sans-serif;
 }
 
 html {
