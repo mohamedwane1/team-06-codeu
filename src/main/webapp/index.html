@@ -24,6 +24,7 @@ limitations under the License.
     <link rel="stylesheet" href="/css/user-page.css">
     <link href="https://fonts.googleapis.com/css?family=Roboto&display=swap" rel="stylesheet">
     <script src="/js/navigation-loader.js"></script>
+    <!-- <script type="text/javascript" src="/js/home-page-loader.js"></script> -->
     <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
@@ -59,39 +60,54 @@ limitations under the License.
 
     <img src="blossom.png" width="470" height="310">
     <h1> Blossom </h1>
+    <br>
     <h4>
-        We build our app for three major groups of people in mind.
+        <i>A resource for women, activists, and advocates looking to learn more about reproductive health in the United States </i>
     </h4>
-    <p>Writing credit to Bhaamati</p>
-    <div style="text-align: left;">
-      <p>
-        1. Women looking for information about and resources for reproductive health <br>
-        Who they are: Everyday women don’t always have great access to information about such things as 
-        birth control, abortion, cervical health, etc. They click through the internet in an 
-        endless stream of misinformation. <br>
-        Their needs: Women need to have basic education about reproductive health and also have 
-        access to resources that tell them where they should go in case they need reproductive 
-        health care. They also need platforms on which to ask questions and communicate 
-        concerns about their health.
-      </p>
-      <p>
-        2. Women’s Rights Advocates <br>
-        Who they are: Activists in the women’s reproductive health movement are women 
-        and men engaged with the issue of making birth control, abortion, and overal women’s 
-        reproductive health care legal, safe, available, and affordable. <br>
-        Their needs: Activists often communicate and mobilize online. Online forums are useful 
-        in organizing events, rallies, and on a basic level showing support. This user group needs 
-        dedicated platforms on which to gain and also to disseminate information. 
-      </p>
-      <p>
-        3. Politicians/Public Policy Makers <br>
-        Who they are: That rare breed of politician who might want look at facts and statistics 
-        in order to educate himself or herself. <br>
-        Their needs: Public policy makers are often woefully disconnected from what their 
-        constituents needs especially when it comes to women’s reproductive health. They might 
-        find easily digestible visual information in the form of graphics and charts helpful in 
-        staying informed.
-      </p>
+   <br>
+   <br>
+    <div>
+      <div class="row">
+        <div class="column">
+          <div class = "stat-link unselectable" id="pink-content-box" href = "/statistics.html">
+            Information and statistics about reproductive health
+          </div>
+        </div>
+        <div class="column">
+            <div class = "map-link unselectable" id="pink-content-box" href = "/clinics-map.html">
+            Clinics in your area and the services they offer
+           
+          </div>
+        </div>
+        <div class="column">
+            <div class = "forum-link unselectable" id="pink-content-box" href = "/user-page.html">
+           Forum for discussing reproductive health and seeking advice
+          </div>
+        </div>
+      </div>
+      
     </div>
   </body>
 </html>
+
+<script>
+  $(document).ready(function () {
+
+    // Opens in same window
+    $(".stat-link").click(function(){
+        window.location = $(this).attr('href');
+        return false;
+    });
+
+    $(".map-link").click(function(){
+        window.location = $(this).attr('href');
+        return false;
+    });
+
+    $(".forum-link").click(function(){
+        window.location = $(this).attr('href');
+        return false;
+    });
+
+  });
+</script>
