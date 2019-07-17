@@ -123,7 +123,7 @@ html {
 .column {
   float: left;
   width: 33.33%;
-  padding: 5px;
+  padding: 30px;
 }
 
 /* Clear floats after the columns */
@@ -142,6 +142,7 @@ html {
   border-radius: 5px;
   padding: 5px 5px;
   height: 100%;
+  width: 125%;
   font-size: 150%;
   color:black; 
 }
@@ -164,6 +165,26 @@ html {
   user-select: none;
 }
 
+/* About Page */
+
+#aligned-left {
+  text-align: left;
+}
+
+.about-content-box {
+  font-family: Verdana, Geneva, Tahoma, sans-serif;
+  background-color: white;
+  border: 4px solid #ff97ba;
+  border-radius: 5px;
+  padding: 5px 5px;
+  height: 100%;
+  width: 130%;
+  font-size: 105%;
+  color:black; 
+
+  
+}
+
 /* Map Page */
 #map {
   width: 500px;
@@ -172,23 +193,23 @@ html {
 }
 
 #maps-heading {
-  color: white;
+  color: black;
 }
 
 #maps-subheading {
-  color: powderblue;
+  color: black;
   font-size: 1em;
 }
 
 #content-box {
   /*background-color: rgba(4, 55, 80, 0.4)*/
-  background-color: #ff97ba;
-  border: 4px solid white;
+  background-color: white;
+  border: 4px solid #ff97ba;
   border-radius: 5px;
   padding: 5px 5px;
 }
 #more-info {
-  color: white;
+  color: black;
 }
 
 /* Loader Formatting */
