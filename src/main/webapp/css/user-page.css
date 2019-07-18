@@ -23,10 +23,11 @@
 
 /* Give each message a rounded border. */
 .message-div {
-  border: thin solid #cf309c;
+  background-color: white;
+  border: 4px solid #ff97ba;
   border-radius: 5px;
+  padding: 5px 5px;
   margin-top: 20px;
-  background: #ffd4ea;
 }
 
 /* Make login/logout button font white */
