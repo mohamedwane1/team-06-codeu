@@ -150,7 +150,7 @@ legalData.addRows([
   ['Delaware', 20, createCustomHTMLContent(20, 'https://upload.wikimedia.org/wikipedia/commons/c/c6/Flag_of_Delaware.svg',
    'Abortions are considered illegal unless continuation of pregnancy would result in death or injury to mother;' +
    'mental and/or physical retardation of child or pregnancy result of rape or incest or unlawful sexual intercourse.')],
-  ['Florida', 18, createCustomHTMLContent(24, 'https://upload.wikimedia.org/wikipedia/commons/f/f7/Flag_of_Florida.svg',
+  ['Florida', 18, createCustomHTMLContent(18, 'https://upload.wikimedia.org/wikipedia/commons/f/f7/Flag_of_Florida.svg',
   'Third trimester abortions are considered illegal unless performed to preserve the health of the mother.')],// *restrictions apply
   ['Georgia', 20, createCustomHTMLContent(20, 'https://upload.wikimedia.org/wikipedia/commons/5/54/Flag_of_Georgia_%28U.S._state%29.svg',
    'After 2nd trimester, a physician and 2 consulting physicians must certify it is necessary to preserve life or health of mother.')],
