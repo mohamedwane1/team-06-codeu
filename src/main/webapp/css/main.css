@@ -164,9 +164,42 @@ html {
 }
 
 /* About Page */
+#about-us-body {
+  max-width: 1000px;
+  width: 1000px;
+
+}
+.col {
+  float: left;
+  width: 33%;
+  margin-bottom: 16px;
+  padding: 0 8px;
+}
+
+/*display the columns below each other on small screens*/
+@media screen and (max-width: 650px) {
+  .column {
+    width: 100%;
+    display: block;
+  }
+}
+/*shadow effect on cards*/
+.card {
+  box-shadow: 0 4px 8px 0 pink;
+}
+
+.container {
+  padding: 0 16px;
+}
 
 #aligned-left {
   text-align: left;
+}
+
+.container::after, .row::after {
+  content: "";
+  clear: both;
+  display: table;
 }
 
 .about-content-box {
@@ -178,9 +211,7 @@ html {
   height: 100%;
   width: 130%;
   font-size: 105%;
-  color:black;
-
-
+  color:black;*/
 }
 
 /* Map Page */
