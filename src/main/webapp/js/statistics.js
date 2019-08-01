@@ -82,7 +82,7 @@ function drawCostChart() {
       width: 800, height: 500,
       backgroundColor: 'transparent',
       animation: {
-        duration: 1500,
+        duration: 1300,
         "startup": true
       }
     };
